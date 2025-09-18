@@ -51,20 +51,54 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Grid layout with minimum 2 cards per row */
+/* Apple-inspired responsive grid with elegant spacing */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(200px, calc(50% - 1rem)), 1fr));
-  gap: 2rem;
+  gap: clamp(1rem, 3vw, 2rem);
   margin-bottom: 4rem;
   justify-content: center;
+  padding: 0 clamp(1rem, 3vw, 2rem);
 }
 
-/* Ensure at least 2 cards per row on smaller screens */
-@media (max-width: 480px) {
+/* Mobile: 2 cards (Apple's minimum touch target considerations) */
+@media (max-width: 767px) {
   .video-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Tablet: 3 cards (optimal for iPad-like devices) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .video-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 0 2rem;
+  }
+}
+
+/* Desktop: 4-6 cards based on width (Apple's content-first approach) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .video-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .video-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .video-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2rem;
+    max-width: 1920px;
+    margin: 0 auto 4rem auto;
   }
 }
 
@@ -101,4 +135,50 @@ body {
 
 .tags-container::-webkit-scrollbar {
   display: none;
+}
+
+/* Apple-inspired glassmorphism button for admin/navigation */
+.apple-nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.apple-nav-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.16),
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.apple-nav-button:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* User/Admin icon SVG styling */
+.admin-icon {
+  width: 20px;
+  height: 20px;
+  fill: rgba(255, 255, 255, 0.85);
+  transition: fill 0.2s ease;
+}
+
+.apple-nav-button:hover .admin-icon {
+  fill: rgba(255, 255, 255, 0.95);
 }
