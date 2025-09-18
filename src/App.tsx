@@ -530,8 +530,9 @@ function App() {
           style={{
             height: '48px',
             width: 'auto',
-            filter: 'brightness(0.9)',
-            opacity: 0.95
+            filter: 'brightness(0.9) contrast(1.2)',
+            opacity: 0.95,
+            mixBlendMode: 'multiply'
           }}
         />
       </div>
