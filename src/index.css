@@ -50,3 +50,55 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
+/* Grid layout with minimum 2 cards per row */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(200px, calc(50% - 1rem)), 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+  justify-content: center;
+}
+
+/* Ensure at least 2 cards per row on smaller screens */
+@media (max-width: 480px) {
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Button styling consistency */
+.standard-button {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.standard-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Tag buttons horizontal scroll */
+.tags-container {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tags-container::-webkit-scrollbar {
+  display: none;
+}

@@ -520,7 +520,7 @@ function App() {
       {/* Admin Button */}
       {currentView === 'main' && (
         <div style={{
-          position: 'fixed',
+          position: 'absolute',
           top: '1rem',
           right: '2rem',
           zIndex: 50
@@ -559,7 +559,7 @@ function App() {
       {/* Home Button on Admin Dashboard */}
       {currentView === 'admin' && isLoggedIn && (
         <div style={{
-          position: 'fixed',
+          position: 'absolute',
           top: '1rem',
           right: '2rem',
           zIndex: 50
@@ -617,12 +617,14 @@ function App() {
             {currentView === 'main' && (
               <div style={{ textAlign: 'center' }}>
                 <h1 style={{
-                  fontSize: '4rem',
+                  fontSize: 'clamp(2rem, 8vw, 3rem)',
                   fontWeight: '200',
                   color: 'white',
                   marginBottom: '1rem',
                   letterSpacing: '-0.02em',
-                  margin: 0
+                  margin: 0,
+                  wordBreak: 'break-word',
+                  maxWidth: '100%'
                 }}>
                   MadeYouThink Directory
                 </h1>
@@ -769,13 +771,7 @@ function App() {
 
           {/* Video Grid */}
           {filteredVideos.length > 0 ? (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, 220px)',
-              gap: '2rem',
-              marginBottom: '4rem',
-              justifyContent: 'center'
-            }}>
+            <div className="video-grid">
               {currentVideos.map((video) => (
                 <div
                   key={video.id}
@@ -1288,28 +1284,37 @@ function App() {
             </div>
 
             {/* Category Filter Tags */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '0.75rem',
+            <div className="tag-scroll" style={{
+              overflowX: 'auto',
+              overflowY: 'hidden',
+              whiteSpace: 'nowrap',
+              marginTop: '2rem',
               marginBottom: '3rem',
-              flexWrap: 'wrap'
+              paddingBottom: '0.5rem',
+              WebkitOverflowScrolling: 'touch'
             }}>
+              <div style={{
+                display: 'inline-flex',
+                gap: '0.75rem',
+                paddingLeft: '1rem',
+                paddingRight: '1rem',
+                minWidth: 'max-content'
+              }}>
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   style={{
-                    padding: '0.75rem 1.5rem',
+                    padding: '0.5rem 1rem',
                     background: selectedCategory === category
-                      ? 'rgba(255, 255, 255, 0.15)'
+                      ? 'rgba(255, 255, 255, 0.2)'
                       : 'rgba(255, 255, 255, 0.08)',
-                    backdropFilter: 'blur(16px) saturate(180%)',
-                    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                    backdropFilter: 'blur(12px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(12px) saturate(180%)',
                     border: selectedCategory === category
                       ? '1px solid rgba(255, 255, 255, 0.3)'
                       : '1px solid rgba(255, 255, 255, 0.125)',
-                    borderRadius: '16px',
+                    borderRadius: '12px',
                     boxShadow: selectedCategory === category
                       ? '0 4px 24px 0 rgba(31, 38, 135, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15)'
                       : '0 4px 16px 0 rgba(31, 38, 135, 0.2)',
@@ -1338,17 +1343,12 @@ function App() {
                   {category}
                 </button>
               ))}
+              </div>
             </div>
 
             {/* Admin Video Grid */}
             {filteredVideos.length > 0 ? (
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, 220px)',
-                gap: '2rem',
-                marginBottom: '4rem',
-                justifyContent: 'center'
-              }}>
+              <div className="video-grid">
                 {currentVideos.map((video) => (
                   <div
                     key={video.id}
@@ -2547,9 +2547,9 @@ function App() {
         >
           <div
             style={{
-              width: '90vw',
-              height: '80vh',
-              maxWidth: '1200px',
+              width: 'min(90vw, 1280px)',
+              height: 'min(50.625vw, 720px)',
+              aspectRatio: '16/9',
               background: 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
