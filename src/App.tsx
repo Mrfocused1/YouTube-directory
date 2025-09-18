@@ -162,15 +162,48 @@ function App() {
 
   return (
     <div className="min-h-screen relative overflow-hidden font-sans bg-gray-950 text-white flex flex-col items-center justify-start p-4 md:p-8">
-      {/* Removed the Tower Bridge Background div that was causing overflow issues */}
+      {/* Tower Bridge Background */}
+      <div
+        className="fixed inset-0 w-full h-full"
+        style={{
+          backgroundImage: 'url(/tower-bridge.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'blur(8px) brightness(0.6) contrast(1.1)',
+          zIndex: -10
+        }}
+      />
 
-      {/* Removed secondary animated layer for simplicity and responsiveness. */}
+      {/* Dark-themed gradient animation background */}
+      <div className="fixed inset-0 w-full h-full pointer-events-none" style={{ zIndex: -5 }}>
+        {/* Primary gradient layer */}
+        <div
+          className="absolute inset-0 opacity-15"
+          style={{
+            background: 'radial-gradient(circle at 20% 80%, #1a1a2e 0%, transparent 50%), radial-gradient(circle at 80% 20%, #16213e 0%, transparent 50%), radial-gradient(circle at 40% 40%, #0f3460 0%, transparent 50%)',
+            animation: 'moveGradient1 20s ease-in-out infinite'
+          }}
+        />
 
-      {/* Removed light overlay for simplicity and responsiveness. */}
+        {/* Secondary gradient layer */}
+        <div
+          className="absolute inset-0 opacity-12"
+          style={{
+            background: 'radial-gradient(circle at 60% 70%, #0f172a 0%, transparent 50%), radial-gradient(circle at 30% 30%, #1e293b 0%, transparent 50%)',
+            animation: 'moveGradient2 25s ease-in-out infinite reverse'
+          }}
+        />
 
-      {/* Removed Paper Shader Background - Primary Layer for simplicity. */}
-
-      {/* Removed Paper Shader Background - Wireframe Layer for simplicity. */}
+        {/* Tertiary gradient layer */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            background: 'radial-gradient(circle at 90% 10%, #334155 0%, transparent 50%), radial-gradient(circle at 10% 90%, #475569 0%, transparent 50%)',
+            animation: 'moveGradient3 30s ease-in-out infinite'
+          }}
+        />
+      </div>
 
       {/* Main content area */}
       <main className="relative z-10 w-full max-w-6xl mt-8 mb-8 px-4 md:px-0 flex flex-col items-center">
@@ -243,7 +276,7 @@ function App() {
 
             {/* Video Grid */}
             {filteredVideos.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-8 justify-items-center">
+              <div className="grid grid-cols-auto-fit gap-8 mb-8 justify-center">
                 {currentVideos.map((video) => (
                   <div
                     key={video.id}
@@ -1428,6 +1461,22 @@ function App() {
             -ms-overflow-style: none;
             scrollbar-width: none;
             scroll-behavior: smooth;
+          }
+
+          /* Auto-fit grid layout */
+          .grid-cols-auto-fit {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          }
+
+          /* Enhanced shadow support */
+          .shadow-3xl {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+          }
+
+          /* Focus indicators for accessibility */
+          button:focus-visible, input:focus-visible, select:focus-visible {
+            outline: 2px solid #60a5fa;
+            outline-offset: 2px;
           }
 
           /* Mobile and Desktop Background Control */
