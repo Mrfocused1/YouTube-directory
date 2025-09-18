@@ -528,7 +528,7 @@ function App() {
           src="/castillo-logo.png"
           alt="Castillo Logo"
           style={{
-            height: '48px',
+            height: '64px',
             width: 'auto',
             opacity: 0.95
           }}
