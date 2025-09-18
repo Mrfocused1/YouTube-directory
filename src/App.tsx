@@ -161,214 +161,855 @@ function App() {
   const currentVideos = filteredVideos.slice(startIndex, startIndex + videosPerPage)
 
   return (
-    <div className="min-h-screen relative overflow-hidden font-sans bg-gray-950 text-white flex flex-col items-center justify-start p-4 md:p-8">
+    <div style={{
+      minHeight: '100vh',
+      position: 'relative',
+      overflow: 'hidden',
+      fontFamily: '"Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    }}>
       {/* Tower Bridge Background */}
       <div
-        className="fixed inset-0 w-full h-full"
         style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: -10,
           backgroundImage: 'url(/tower-bridge.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
           filter: 'blur(8px) brightness(0.6) contrast(1.1)',
-          zIndex: -10
         }}
       />
 
-      {/* Dark-themed gradient animation background */}
-      <div className="fixed inset-0 w-full h-full pointer-events-none" style={{ zIndex: -5 }}>
-        {/* Primary gradient layer */}
-        <div
-          className="absolute inset-0 opacity-15"
-          style={{
-            background: 'radial-gradient(circle at 20% 80%, #1a1a2e 0%, transparent 50%), radial-gradient(circle at 80% 20%, #16213e 0%, transparent 50%), radial-gradient(circle at 40% 40%, #0f3460 0%, transparent 50%)',
-            animation: 'moveGradient1 20s ease-in-out infinite'
-          }}
-        />
+      {/* Secondary animated layer */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '-5%',
+          left: '-5%',
+          width: '110%',
+          height: '110%',
+          zIndex: -9,
+          background: `
+            radial-gradient(ellipse at 60% 40%, rgba(30, 41, 59, 0.6) 0%, transparent 60%),
+            radial-gradient(ellipse at 20% 80%, rgba(51, 65, 85, 0.5) 0%, transparent 60%),
+            radial-gradient(ellipse at 80% 20%, rgba(71, 85, 105, 0.4) 0%, transparent 60%)
+          `,
+          filter: 'blur(30px)',
+          animation: 'videoFlow2 25s ease-in-out infinite alternate-reverse',
+          willChange: 'transform'
+        }}
+      />
 
-        {/* Secondary gradient layer */}
-        <div
-          className="absolute inset-0 opacity-12"
-          style={{
-            background: 'radial-gradient(circle at 60% 70%, #0f172a 0%, transparent 50%), radial-gradient(circle at 30% 30%, #1e293b 0%, transparent 50%)',
-            animation: 'moveGradient2 25s ease-in-out infinite reverse'
-          }}
-        />
+      {/* Particle effect layer */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: -8,
+          background: `
+            radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+            radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+            radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: '100px 100px, 150px 150px, 80px 80px',
+          animation: 'particleFloat 30s linear infinite',
+          willChange: 'transform'
+        }}
+      />
 
-        {/* Tertiary gradient layer */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            background: 'radial-gradient(circle at 90% 10%, #334155 0%, transparent 50%), radial-gradient(circle at 10% 90%, #475569 0%, transparent 50%)',
-            animation: 'moveGradient3 30s ease-in-out infinite'
-          }}
-        />
-      </div>
+      {/* Light overlay for readability */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: -7,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        }}
+      />
 
-      {/* Main content area */}
-      <main className="relative z-10 w-full max-w-6xl mt-8 mb-8 px-4 md:px-0 flex flex-col items-center">
+      {/* Paper Shader Background - Primary Layer - Commented out to show Tower Bridge */}
+      {/* <div
+        className="desktop-bg"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '120%',
+          height: '120%',
+          zIndex: -3,
+          background: `
+            radial-gradient(ellipse at 20% 30%, rgba(139, 92, 246, 0.5) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 70%, rgba(219, 39, 119, 0.45) 0%, transparent 50%),
+            radial-gradient(ellipse at 40% 80%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+            radial-gradient(ellipse at 90% 20%, rgba(147, 51, 234, 0.5) 0%, transparent 50%),
+            radial-gradient(ellipse at 10% 90%, rgba(236, 72, 153, 0.4) 0%, transparent 50%),
+            linear-gradient(135deg,
+              rgba(0, 0, 0, 0.8) 0%,
+              rgba(30, 30, 30, 0.7) 25%,
+              rgba(15, 15, 25, 0.75) 50%,
+              rgba(25, 15, 30, 0.7) 75%,
+              rgba(0, 0, 0, 0.8) 100%
+            )
+          `,
+          transform: 'translate(-10%, -10%)',
+          willChange: 'transform',
+          animation: 'meshFloat1 20s ease-in-out infinite alternate'
+        }}
+      /> */}
+
+      {/* Paper Shader Background - Wireframe Layer - Commented out to show Tower Bridge */}
+      {/* <div
+        className="desktop-bg"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '120%',
+          height: '120%',
+          zIndex: -2,
+          opacity: 0.6,
+          background: `
+            radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 40%),
+            radial-gradient(ellipse at 70% 60%, rgba(167, 139, 250, 0.3) 0%, transparent 45%),
+            radial-gradient(ellipse at 50% 90%, rgba(255, 255, 255, 0.18) 0%, transparent 35%),
+            radial-gradient(ellipse at 85% 30%, rgba(196, 181, 253, 0.25) 0%, transparent 40%),
+            conic-gradient(from 0deg at 50% 50%,
+              rgba(139, 92, 246, 0.2) 0deg,
+              transparent 60deg,
+              rgba(219, 39, 119, 0.18) 120deg,
+              transparent 180deg,
+              rgba(59, 130, 246, 0.2) 240deg,
+              transparent 300deg,
+              rgba(139, 92, 246, 0.2) 360deg
+            )
+          `,
+          transform: 'translate(-10%, -10%) rotate(0.5deg)',
+          willChange: 'transform',
+          animation: 'meshFloat2 15s ease-in-out infinite alternate-reverse'
+        }}
+      /> */}
+
+      {/* Paper Texture Overlay - Commented out to show Tower Bridge */}
+      {/* <div
+        className="desktop-bg"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: -1,
+          background: `
+            repeating-linear-gradient(
+              0deg,
+              transparent,
+              transparent 2px,
+              rgba(255, 255, 255, 0.01) 2px,
+              rgba(255, 255, 255, 0.01) 4px
+            ),
+            repeating-linear-gradient(
+              90deg,
+              transparent,
+              transparent 2px,
+              rgba(255, 255, 255, 0.01) 2px,
+              rgba(255, 255, 255, 0.01) 4px
+            )
+          `,
+          mixBlendMode: 'overlay'
+        }}
+      /> */}
+
+      {/* Floating Elements - Commented out to show Tower Bridge */}
+      {/* <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '20%',
+        left: '10%',
+        width: '200px',
+        height: '200px',
+        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(40px)',
+        animation: 'float1 8s ease-in-out infinite'
+      }}></div> */}
+      {/* <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '60%',
+        right: '15%',
+        width: '150px',
+        height: '150px',
+        background: 'radial-gradient(circle, rgba(219, 39, 119, 0.2) 0%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(30px)',
+        animation: 'float2 10s ease-in-out infinite reverse'
+      }}></div> */}
+      {/* <div className="desktop-bg" style={{
+        position: 'absolute',
+        bottom: '20%',
+        left: '20%',
+        width: '100px',
+        height: '100px',
+        background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(25px)',
+        animation: 'float3 6s ease-in-out infinite'
+      }}></div> */}
+
+      {/* Moving Blurred Gradients Layer 1 - Commented out to show Tower Bridge */}
+      {/* <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '0%',
+        left: '0%',
+        width: '400px',
+        height: '300px',
+        background: 'linear-gradient(45deg, rgba(147, 51, 234, 0.35) 0%, rgba(79, 70, 229, 0.25) 50%, transparent 100%)',
+        borderRadius: '50%',
+        filter: 'blur(60px)',
+        animation: 'moveGradient1 25s ease-in-out infinite',
+        willChange: 'transform'
+      }}></div>
+
+      {/* All gradient elements commented out to show Tower Bridge background */}
+      {/*
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '40%',
+        right: '0%',
+        width: '350px',
+        height: '250px',
+        background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.3) 0%, rgba(219, 39, 119, 0.22) 50%, transparent 100%)',
+        borderRadius: '50%',
+        filter: 'blur(50px)',
+        animation: 'moveGradient2 30s ease-in-out infinite reverse',
+        willChange: 'transform'
+      }}></div>
+
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        bottom: '0%',
+        left: '30%',
+        width: '300px',
+        height: '200px',
+        background: 'linear-gradient(225deg, rgba(59, 130, 246, 0.28) 0%, rgba(37, 99, 235, 0.2) 50%, transparent 100%)',
+        borderRadius: '50%',
+        filter: 'blur(45px)',
+        animation: 'moveGradient3 35s ease-in-out infinite',
+        willChange: 'transform'
+      }}></div>
+      */}
+
+      {/* Moving Blurred Gradients Layer 2 - Commented out */}
+      {/*
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '15%',
+        right: '20%',
+        width: '250px',
+        height: '180px',
+        background: 'radial-gradient(ellipse, rgba(168, 85, 247, 0.22) 0%, rgba(147, 51, 234, 0.15) 60%, transparent 100%)',
+        borderRadius: '60% 40% 30% 70%',
+        filter: 'blur(55px)',
+        animation: 'moveGradient4 28s ease-in-out infinite reverse',
+        willChange: 'transform'
+      }}></div>
+
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '70%',
+        left: '5%',
+        width: '320px',
+        height: '220px',
+        background: 'conic-gradient(from 90deg, rgba(139, 92, 246, 0.25) 0%, rgba(168, 85, 247, 0.18) 25%, transparent 50%, rgba(219, 39, 119, 0.2) 75%, rgba(139, 92, 246, 0.25) 100%)',
+        borderRadius: '40% 60% 70% 30%',
+        filter: 'blur(70px)',
+        animation: 'moveGradient5 40s ease-in-out infinite',
+        willChange: 'transform'
+      }}></div>
+
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: '200px',
+        height: '160px',
+        background: 'linear-gradient(315deg, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.18) 40%, transparent 80%)',
+        borderRadius: '30% 70% 60% 40%',
+        filter: 'blur(40px)',
+        animation: 'moveGradient6 32s ease-in-out infinite reverse',
+        willChange: 'transform',
+        transform: 'translate(-50%, -50%)'
+      }}></div>
+      */}
+
+      {/* Additional Animated Color Elements - Commented out */}
+      {/*
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '10%',
+        left: '70%',
+        width: '400px',
+        height: '400px',
+        background: 'radial-gradient(circle, rgba(255, 0, 128, 0.15) 0%, rgba(255, 105, 180, 0.1) 30%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(80px)',
+        animation: 'colorPulse1 25s ease-in-out infinite, moveGradient7 45s ease-in-out infinite',
+        willChange: 'transform, opacity'
+      }}></div>
+
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        bottom: '15%',
+        right: '10%',
+        width: '350px',
+        height: '350px',
+        background: 'radial-gradient(circle, rgba(0, 255, 255, 0.12) 0%, rgba(64, 224, 208, 0.08) 40%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(75px)',
+        animation: 'colorPulse2 30s ease-in-out infinite reverse, moveGradient8 35s ease-in-out infinite reverse',
+        willChange: 'transform, opacity'
+      }}></div>
+
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '60%',
+        left: '15%',
+        width: '300px',
+        height: '300px',
+        background: 'conic-gradient(from 180deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 165, 0, 0.08) 25%, transparent 50%, rgba(255, 69, 0, 0.06) 75%, rgba(255, 215, 0, 0.1) 100%)',
+        borderRadius: '50%',
+        filter: 'blur(90px)',
+        animation: 'colorPulse3 20s ease-in-out infinite, spinSlow 60s linear infinite',
+        willChange: 'transform, opacity'
+      }}></div>
+
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        top: '25%',
+        left: '25%',
+        width: '280px',
+        height: '280px',
+        background: 'linear-gradient(45deg, rgba(124, 252, 0, 0.08) 0%, rgba(50, 205, 50, 0.06) 50%, transparent 100%)',
+        borderRadius: '50%',
+        filter: 'blur(85px)',
+        animation: 'colorPulse4 35s ease-in-out infinite reverse, moveGradient9 50s ease-in-out infinite',
+        willChange: 'transform, opacity'
+      }}></div>
+
+      <div className="desktop-bg" style={{
+        position: 'absolute',
+        bottom: '30%',
+        left: '60%',
+        width: '380px',
+        height: '250px',
+        background: 'radial-gradient(ellipse, rgba(138, 43, 226, 0.12) 0%, rgba(75, 0, 130, 0.08) 50%, transparent 100%)',
+        borderRadius: '70% 30% 60% 40%',
+        filter: 'blur(95px)',
+        animation: 'colorPulse5 28s ease-in-out infinite, moveGradient10 40s ease-in-out infinite reverse',
+        willChange: 'transform, opacity'
+      }}></div>
+      */}
+
+      {/* Admin Button */}
+      {currentView === 'main' && (
+        <div style={{
+          position: 'fixed',
+          top: '1rem',
+          right: '2rem',
+          zIndex: 50
+        }}>
+          <button
+            onClick={() => setCurrentView('login')}
+            style={{
+              padding: '0.75rem 1.5rem',
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(12px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+              border: '1px solid rgba(255, 255, 255, 0.125)',
+              borderRadius: '12px',
+              boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.2)',
+              color: 'white',
+              fontSize: '14px',
+              fontWeight: '400',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              letterSpacing: '0.5px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'
+              e.currentTarget.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
+              e.currentTarget.style.transform = 'translateY(0)'
+            }}
+          >
+            Admin
+          </button>
+        </div>
+      )}
+
+      {/* Home Button on Admin Dashboard */}
+      {currentView === 'admin' && isLoggedIn && (
+        <div style={{
+          position: 'fixed',
+          top: '1rem',
+          right: '2rem',
+          zIndex: 50
+        }}>
+          <button
+            onClick={() => {
+              setCurrentView('main')
+              setIsLoggedIn(false)
+            }}
+            style={{
+              padding: '0.75rem 1.5rem',
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(12px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+              border: '1px solid rgba(255, 255, 255, 0.125)',
+              borderRadius: '12px',
+              boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.2)',
+              color: 'white',
+              fontSize: '14px',
+              fontWeight: '400',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              letterSpacing: '0.5px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'
+              e.currentTarget.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
+              e.currentTarget.style.transform = 'translateY(0)'
+            }}
+          >
+            Home
+          </button>
+        </div>
+      )}
+
+      <div style={{
+        position: 'relative',
+        zIndex: 10,
+        paddingTop: '4rem',
+        paddingBottom: '2rem'
+      }}>
         {/* Header */}
-        <header className="w-full text-center pb-8">
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-2 leading-none" style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0.6)' }}>
-            MadeYouThin Directory
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-8">
-            Links to most videos posted on this page
-          </p>
+        <header style={{ paddingBottom: '2rem' }}>
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 1.5rem',
+            position: 'relative'
+          }}>
 
-          {/* Search Bar */}
-          <div className="max-w-600 mx-auto mb-8">
-            <div className="relative">
-              <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search videos, channels, or tags..."
-                className="w-full py-3 pl-12 pr-4 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            {/* Title */}
+            {currentView === 'main' && (
+              <div style={{ textAlign: 'center' }}>
+                <h1 style={{
+                  fontSize: '4rem',
+                  fontWeight: '200',
+                  color: 'white',
+                  marginBottom: '1rem',
+                  letterSpacing: '-0.02em',
+                  margin: 0
+                }}>
+                  MadeYouThink Directory
+                </h1>
+              <p style={{
+                fontSize: '18px',
+                color: '#9ca3af',
+                fontWeight: '400',
+                margin: '0 0 2rem 0'
+              }}>
+                Links to most videos posted on this page
+              </p>
+
+              {/* Search Bar */}
+              <div style={{
+                maxWidth: '600px',
+                margin: '0 auto 2rem auto'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  background: 'rgba(0, 0, 0, 0.3)',
+                  backdropFilter: 'blur(20px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: '16px',
+                  padding: '1rem 1.5rem',
+                  boxShadow: 'inset 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 24px 0 rgba(31, 38, 135, 0.2)'
+                }}>
+                  <svg style={{
+                    width: '20px',
+                    height: '20px',
+                    color: '#9ca3af',
+                    marginRight: '1rem'
+                  }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                </button>
-              )}
-            </div>
-          </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search videos, channels, or tags..."
+                    style={{
+                      flex: 1,
+                      background: 'transparent',
+                      color: 'white',
+                      fontSize: '18px',
+                      fontWeight: '300',
+                      border: 'none',
+                      outline: 'none'
+                    }}
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      style={{
+                        marginLeft: '1rem',
+                        padding: '0.5rem',
+                        color: '#9ca3af',
+                        background: 'transparent',
+                        border: 'none',
+                        borderRadius: '50%',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
 
-          {/* Category Filters */}
-          <div className="tag-scroll overflow-x-auto whitespace-nowrap mt-6 mb-4 flex justify-center">
-            <div className="inline-flex gap-3 px-4 sm:px-0 min-w-max">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className="px-4 py-2 bg-gray-700 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-600 hover:text-white transition-all duration-300"
-                  onMouseEnter={(e) => {
-                    if (selectedCategory !== category) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
-                      e.currentTarget.style.color = 'white'
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (selectedCategory !== category) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
-                      e.currentTarget.style.color = 'rgba(255, 255, 255, 0.8)'
-                    }
-                  }}
-                >
-                  {category}
-                </button>
-              ))}
+              {/* Category Filters */}
+              <div className="tag-scroll" style={{
+                overflowX: 'auto',
+                overflowY: 'hidden',
+                whiteSpace: 'nowrap',
+                marginTop: '2rem',
+                paddingBottom: '0.5rem',
+                WebkitOverflowScrolling: 'touch'
+              }}>
+                <div style={{
+                  display: 'inline-flex',
+                  gap: '0.75rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '1rem',
+                  minWidth: 'max-content'
+                }}>
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      background: selectedCategory === category
+                        ? 'rgba(255, 255, 255, 0.2)'
+                        : 'rgba(255, 255, 255, 0.08)',
+                      backdropFilter: 'blur(12px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+                      border: selectedCategory === category
+                        ? '1px solid rgba(255, 255, 255, 0.3)'
+                        : '1px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '16px',
+                      color: selectedCategory === category ? 'white' : 'rgba(255, 255, 255, 0.8)',
+                      fontSize: '13px',
+                      fontWeight: selectedCategory === category ? '500' : '400',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      letterSpacing: '0.3px',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0
+                    }}
+                    onMouseEnter={(e) => {
+                      if (selectedCategory !== category) {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
+                        e.currentTarget.style.color = 'white'
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (selectedCategory !== category) {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
+                        e.currentTarget.style.color = 'rgba(255, 255, 255, 0.8)'
+                      }
+                    }}
+                  >
+                    {category}
+                  </button>
+                ))}
+                </div>
+              </div>
             </div>
+            )}
           </div>
         </header>
 
         {/* Main Content */}
         {currentView === 'main' && (
-          <main className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <main style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 1.5rem 5rem 1.5rem'
+          }}>
 
-            {/* Video Grid */}
-            {filteredVideos.length > 0 ? (
-              <div className="grid grid-cols-auto-fit gap-8 mb-8 justify-center">
-                {currentVideos.map((video) => (
-                  <div
-                    key={video.id}
-                    className="cursor-pointer transform transition-all"
-                    onClick={() => setPlayingVideo(video)}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0) scale(1)'
-                    }}
-                  >
-                    <div className="relative overflow-hidden rounded-lg bg-gray-700 backdrop-blur-lg backdrop-saturate-180 border border-gray-600 shadow-lg transition-all duration-300 h-64 w-64 flex flex-col">
-                      {/* Thumbnail */}
-                      <div className="relative flex-0 auto h-40 overflow-hidden">
-                        <img
-                          src={video.thumbnail_url}
-                          alt={video.title}
-                          className="w-full h-full object-cover transition-transform duration-700"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20"></div>
+          {/* Video Grid */}
+          {filteredVideos.length > 0 ? (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, 220px)',
+              gap: '2rem',
+              marginBottom: '4rem',
+              justifyContent: 'center'
+            }}>
+              {currentVideos.map((video) => (
+                <div
+                  key={video.id}
+                  style={{
+                    cursor: 'pointer',
+                    transform: 'translateY(0)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onClick={() => setPlayingVideo(video)}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)'
+                  }}
+                >
+                  <div style={{
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: '20px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    backdropFilter: 'blur(16px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.125)',
+                    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    height: '220px',
+                    width: '220px',
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}>
+                    {/* Thumbnail */}
+                    <div style={{
+                      position: 'relative',
+                      flex: '0 0 auto',
+                      height: '120px',
+                      overflow: 'hidden'
+                    }}>
+                      <img
+                        src={video.thumbnail_url}
+                        alt={video.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.7s ease'
+                        }}
+                        loading="lazy"
+                      />
+                      <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)'
+                      }}></div>
 
-                        {/* HD Badge */}
-                        <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-10 text-white text-xs px-2 py-1 rounded border border-gray-600">
-                          HD
-                        </div>
+                      {/* HD Badge */}
+                      <div style={{
+                        position: 'absolute',
+                        top: '1rem',
+                        right: '1rem',
+                        background: 'rgba(0, 0, 0, 0.6)',
+                        backdropFilter: 'blur(10px)',
+                        color: 'white',
+                        fontSize: '12px',
+                        padding: '0.25rem 0.5rem',
+                        borderRadius: '6px',
+                        border: '1px solid rgba(255, 255, 255, 0.2)'
+                      }}>
+                        HD
                       </div>
+                    </div>
 
-                      {/* Content */}
-                      <div className="p-4 flex-1 flex flex-col justify-between">
-                        <h3 className="text-white font-medium text-sm leading-6 mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                          {video.title}
-                        </h3>
+                    {/* Content */}
+                    <div style={{
+                      padding: '1.5rem',
+                      flex: '1 1 auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between'
+                    }}>
+                      <h3 style={{
+                        color: 'white',
+                        fontWeight: '500',
+                        fontSize: '14px',
+                        lineHeight: '1.4',
+                        margin: '0 0 0.75rem 0',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical'
+                      }}>
+                        {video.title}
+                      </h3>
 
-                        <div className="flex items-center justify-end text-sm text-gray-400">
-                          <span className="text-xs">
-                            {new Date(video.published_at).toLocaleDateString('en-GB', {
-                              day: '2-digit',
-                              month: '2-digit',
-                              year: '2-digit'
-                            })}
-                          </span>
-                        </div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        fontSize: '14px',
+                        color: '#9ca3af'
+                      }}>
+                        <span style={{ fontSize: '12px' }}>
+                          {new Date(video.published_at).toLocaleDateString('en-GB', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: '2-digit'
+                          })}
+                        </span>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <h3 className="text-2xl font-medium text-white mb-4">No videos found</h3>
-                <p className="text-gray-400 font-light">Try adjusting your search terms</p>
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{
+              textAlign: 'center',
+              paddingTop: '5rem',
+              paddingBottom: '5rem'
+            }}>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '300',
+                color: 'white',
+                marginBottom: '0.75rem',
+                margin: '0 0 0.75rem 0'
+              }}>No videos found</h3>
+              <p style={{
+                color: '#9ca3af',
+                fontWeight: '300',
+                margin: 0
+              }}>Try adjusting your search terms</p>
+            </div>
+          )}
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex justify-center align-center gap-4">
-                <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 rounded-lg bg-gray-700 text-gray-300 hover:bg-gray-600 transition-all duration-300"
-                >
-                  Previous
-                </button>
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '1rem'
+            }}>
+              <button
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '12px',
+                  backdropFilter: 'blur(12px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+                  border: '1px solid rgba(255, 255, 255, 0.125)',
+                  background: currentPage === 1 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.08)',
+                  boxShadow: currentPage === 1 ? 'none' : '0 4px 24px 0 rgba(31, 38, 135, 0.2)',
+                  color: currentPage === 1 ? '#6b7280' : 'white',
+                  cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontSize: '14px'
+                }}
+              >
+                Previous
+              </button>
 
-                <span className="px-4 py-2 text-gray-300 font-light">
-                  {currentPage} of {totalPages}
-                </span>
+              <span style={{
+                padding: '0.75rem 1.5rem',
+                color: 'white',
+                fontWeight: '300'
+              }}>
+                {currentPage} of {totalPages}
+              </span>
 
-                <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                  disabled={currentPage === totalPages}
-                  className="px-4 py-2 rounded-lg bg-gray-700 text-gray-300 hover:bg-gray-600 transition-all duration-300"
-                >
-                  Next
-                </button>
-              </div>
-            )}
-          </main>
+              <button
+                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage === totalPages}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '12px',
+                  backdropFilter: 'blur(12px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+                  border: '1px solid rgba(255, 255, 255, 0.125)',
+                  background: currentPage === totalPages ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.08)',
+                  boxShadow: currentPage === totalPages ? 'none' : '0 4px 24px 0 rgba(31, 38, 135, 0.2)',
+                  color: currentPage === totalPages ? '#6b7280' : 'white',
+                  cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontSize: '14px'
+                }}
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </main>
         )}
 
         {/* Login Page */}
         {currentView === 'login' && (
-          <main className="max-w-500 mx-auto px-4 pb-8 flex items-center justify-center min-h-60vh">
-            <div className="bg-gray-700 backdrop-blur-20 border border-gray-600 rounded-2xl p-6 w-full shadow-lg">
-              <div className="text-center mb-4">
-                <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2 leading-none">
+          <main style={{
+            maxWidth: '500px',
+            margin: '0 auto',
+            padding: '0 1.5rem 5rem 1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '60vh'
+          }}>
+            <div style={{
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '24px',
+              padding: '3rem',
+              width: '100%',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}>
+              <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                <h1 style={{
+                  fontSize: '2.5rem',
+                  fontWeight: '200',
+                  color: 'white',
+                  marginBottom: '0.5rem',
+                  letterSpacing: '-0.02em',
+                  margin: '0 0 0.5rem 0'
+                }}>
                   Admin Login
                 </h1>
-                <div className="w-16 h-1 mx-auto border-b-2 rounded-full"></div>
+                <div style={{
+                  width: '60px',
+                  height: '2px',
+                  display: 'none',
+                  margin: '1rem auto',
+                  borderRadius: '1px'
+                }}></div>
               </div>
 
               <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
@@ -384,15 +1025,32 @@ function App() {
                   alert('Invalid credentials')
                 }
               }}>
-                <div className="mb-4">
-                  <label className="block text-white text-sm font-medium mb-2">
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <label style={{
+                    display: 'block',
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    marginBottom: '0.5rem'
+                  }}>
                     Username
                   </label>
                   <input
                     type="text"
                     name="username"
                     required
-                    className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    style={{
+                      width: '100%',
+                      padding: '1rem',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '12px',
+                      color: 'white',
+                      fontSize: '16px',
+                      outline: 'none',
+                      transition: 'all 0.3s ease'
+                    }}
                     onFocus={(e) => {
                       e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
                       e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
@@ -404,15 +1062,32 @@ function App() {
                   />
                 </div>
 
-                <div className="mb-4">
-                  <label className="block text-white text-sm font-medium mb-2">
+                <div style={{ marginBottom: '2rem' }}>
+                  <label style={{
+                    display: 'block',
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    marginBottom: '0.5rem'
+                  }}>
                     Password
                   </label>
                   <input
                     type="password"
                     name="password"
                     required
-                    className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    style={{
+                      width: '100%',
+                      padding: '1rem',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '12px',
+                      color: 'white',
+                      fontSize: '16px',
+                      outline: 'none',
+                      transition: 'all 0.3s ease'
+                    }}
                     onFocus={(e) => {
                       e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
                       e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
@@ -424,11 +1099,23 @@ function App() {
                   />
                 </div>
 
-                <div className="flex gap-4">
+                <div style={{ display: 'flex', gap: '1rem' }}>
                   <button
                     type="button"
                     onClick={() => setCurrentView('main')}
-                    className="flex-1 px-4 py-3 bg-gray-600 text-gray-300 rounded-lg hover:bg-gray-500 transition-all duration-300"
+                    style={{
+                      flex: 1,
+                      padding: '1rem',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '12px',
+                      color: 'rgba(255, 255, 255, 0.8)',
+                      fontSize: '16px',
+                      fontWeight: '400',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease'
+                    }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
                     }}
@@ -440,7 +1127,21 @@ function App() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300"
+                    style={{
+                      flex: 1,
+                      padding: '1rem',
+                      background: 'rgba(255, 255, 255, 0.12)',
+                      backdropFilter: 'blur(16px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '12px',
+                      boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                      color: 'white',
+                      fontSize: '16px',
+                      fontWeight: '500',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = 'rgba(255, 255, 255, 0.18)'
                       e.currentTarget.style.transform = 'translateY(-2px)'
@@ -464,19 +1165,49 @@ function App() {
 
         {/* Admin Dashboard */}
         {currentView === 'admin' && isLoggedIn && (
-          <main className="max-w-1200 mx-auto px-4 pb-8">
+          <main style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 1.5rem 5rem 1.5rem'
+          }}>
             {/* Admin Header */}
-            <div className="text-center mb-6">
-              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 leading-none">
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              <h1 style={{
+                fontSize: '3rem',
+                fontWeight: '200',
+                color: 'white',
+                letterSpacing: '-0.02em',
+                margin: '0 0 2rem 0'
+              }}>
                 Welcome Admin
               </h1>
 
-              <div className="w-32 h-1 mx-auto mb-4 border-b-2 rounded-full"></div>
+              <div style={{
+                width: '96px',
+                height: '2px',
+                display: 'none',
+                margin: '1rem auto 2rem auto',
+                borderRadius: '1px'
+              }}></div>
 
-              <div className="flex justify-center mb-4">
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
                 <button
                   onClick={() => setShowUploadForm(true)}
-                  className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300"
+                  style={{
+                    padding: '1rem 2rem',
+                    background: 'rgba(255, 255, 255, 0.12)',
+                    backdropFilter: 'blur(16px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '16px',
+                    boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                    color: 'white',
+                    fontSize: '16px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    letterSpacing: '0.5px'
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.18)'
                     e.currentTarget.style.transform = 'translateY(-2px)'
@@ -496,9 +1227,28 @@ function App() {
             </div>
 
             {/* Local Video Search */}
-            <div className="max-w-600 mx-auto mb-4">
-              <div className="relative">
-                <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div style={{
+              maxWidth: '600px',
+              margin: '0 auto 2rem auto'
+            }}>
+              <div style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                background: 'rgba(0, 0, 0, 0.3)',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '16px',
+                padding: '1rem 1.5rem',
+                boxShadow: 'inset 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 24px 0 rgba(31, 38, 135, 0.2)'
+              }}>
+                <svg style={{
+                  width: '20px',
+                  height: '20px',
+                  color: '#9ca3af',
+                  marginRight: '1rem'
+                }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <input
@@ -506,14 +1256,30 @@ function App() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search existing videos, channels, or tags..."
-                  className="w-full py-3 pl-12 pr-4 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{
+                    flex: 1,
+                    background: 'transparent',
+                    color: 'white',
+                    fontSize: '18px',
+                    fontWeight: '300',
+                    border: 'none',
+                    outline: 'none'
+                  }}
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                    style={{
+                      marginLeft: '1rem',
+                      padding: '0.5rem',
+                      color: '#9ca3af',
+                      background: 'transparent',
+                      border: 'none',
+                      borderRadius: '50%',
+                      cursor: 'pointer'
+                    }}
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
@@ -522,12 +1288,38 @@ function App() {
             </div>
 
             {/* Category Filter Tags */}
-            <div className="flex justify-center gap-3 mb-6 flex-wrap">
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '0.75rem',
+              marginBottom: '3rem',
+              flexWrap: 'wrap'
+            }}>
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className="px-4 py-2 bg-gray-700 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-600 hover:text-white transition-all duration-300"
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    background: selectedCategory === category
+                      ? 'rgba(255, 255, 255, 0.15)'
+                      : 'rgba(255, 255, 255, 0.08)',
+                    backdropFilter: 'blur(16px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                    border: selectedCategory === category
+                      ? '1px solid rgba(255, 255, 255, 0.3)'
+                      : '1px solid rgba(255, 255, 255, 0.125)',
+                    borderRadius: '16px',
+                    boxShadow: selectedCategory === category
+                      ? '0 4px 24px 0 rgba(31, 38, 135, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15)'
+                      : '0 4px 16px 0 rgba(31, 38, 135, 0.2)',
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: selectedCategory === category ? '500' : '400',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    letterSpacing: '0.25px'
+                  }}
                   onMouseEnter={(e) => {
                     if (selectedCategory !== category) {
                       e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'
@@ -550,18 +1342,66 @@ function App() {
 
             {/* Admin Video Grid */}
             {filteredVideos.length > 0 ? (
-              <div className="grid grid-cols-auto-fit gap-8 mb-8 justify-center">
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, 220px)',
+                gap: '2rem',
+                marginBottom: '4rem',
+                justifyContent: 'center'
+              }}>
                 {currentVideos.map((video) => (
                   <div
                     key={video.id}
-                    className="transform transition-all"
+                    style={{
+                      transform: 'translateY(0)',
+                      transition: 'all 0.3s ease'
+                    }}
                   >
-                    <div className="relative overflow-hidden rounded-lg bg-gray-700 backdrop-blur-lg backdrop-saturate-180 border border-gray-600 shadow-lg transition-all duration-300 h-64 w-64 flex flex-col">
+                    <div style={{
+                      position: 'relative',
+                      overflow: 'hidden',
+                      borderRadius: '20px',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      backdropFilter: 'blur(16px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                      border: '1px solid rgba(255, 255, 255, 0.125)',
+                      boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      height: '220px',
+                    width: '220px',
+                      display: 'flex',
+                      flexDirection: 'column'
+                    }}>
                       {/* Admin Action Buttons */}
-                      <div className="absolute top-2 right-2 flex gap-2 z-10">
+                      <div style={{
+                        position: 'absolute',
+                        top: '1rem',
+                        right: '1rem',
+                        display: 'flex',
+                        gap: '0.75rem',
+                        zIndex: 10
+                      }}>
                         <button
                           onClick={() => setPlayingVideo(video)}
-                          className="w-10 h-10 p-0 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300"
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            padding: '0',
+                            background: 'rgba(59, 130, 246, 0.15)',
+                            backdropFilter: 'blur(16px) saturate(180%)',
+                            WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                            border: '1px solid rgba(59, 130, 246, 0.3)',
+                            borderRadius: '12px',
+                            boxShadow: '0 4px 20px 0 rgba(59, 130, 246, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                            color: 'rgba(59, 130, 246, 1)',
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                          }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.background = 'rgba(59, 130, 246, 0.25)'
                             e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)'
@@ -579,7 +1419,25 @@ function App() {
                         </button>
                         <button
                           onClick={() => setEditingVideo(video)}
-                          className="w-10 h-10 p-0 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300"
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            padding: '0',
+                            background: 'rgba(34, 197, 94, 0.15)',
+                            backdropFilter: 'blur(16px) saturate(180%)',
+                            WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                            border: '1px solid rgba(34, 197, 94, 0.3)',
+                            borderRadius: '12px',
+                            boxShadow: '0 4px 20px 0 rgba(34, 197, 94, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                            color: 'rgba(34, 197, 94, 1)',
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                          }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.background = 'rgba(34, 197, 94, 0.25)'
                             e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)'
@@ -601,7 +1459,25 @@ function App() {
                               setVideos(prevVideos => prevVideos.filter(v => v.id !== video.id))
                             }
                           }}
-                          className="w-10 h-10 p-0 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300"
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            padding: '0',
+                            background: 'rgba(239, 68, 68, 0.15)',
+                            backdropFilter: 'blur(16px) saturate(180%)',
+                            WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                            border: '1px solid rgba(239, 68, 68, 0.3)',
+                            borderRadius: '12px',
+                            boxShadow: '0 4px 20px 0 rgba(239, 68, 68, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                            color: 'rgba(239, 68, 68, 1)',
+                            cursor: 'pointer',
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                          }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.background = 'rgba(239, 68, 68, 0.25)'
                             e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)'
@@ -620,27 +1496,64 @@ function App() {
                       </div>
 
                       {/* Thumbnail */}
-                      <div className="relative flex-0 auto h-40 overflow-hidden">
+                      <div style={{
+                        position: 'relative',
+                        flex: '0 0 auto',
+                        height: '120px',
+                        overflow: 'hidden'
+                      }}>
                         <img
                           src={video.thumbnail_url}
                           alt={video.title}
-                          className="w-full h-full object-cover transition-transform duration-700"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            transition: 'transform 0.7s ease'
+                          }}
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20"></div>
+                        <div style={{
+                          position: 'absolute',
+                          inset: 0,
+                          background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)'
+                        }}></div>
                       </div>
 
                       {/* Content */}
-                      <div className="p-4 flex-1 flex flex-col justify-between">
-                        <h3 className="text-white font-medium text-sm leading-6 mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                      <div style={{
+                        padding: '1.5rem',
+                        flex: '1 1 auto',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between'
+                      }}>
+                        <h3 style={{
+                          color: 'white',
+                          fontWeight: '500',
+                          fontSize: '14px',
+                          lineHeight: '1.4',
+                          margin: '0 0 0.75rem 0',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical'
+                        }}>
                           {video.title}
                         </h3>
 
-                        <div className="flex items-center justify-between text-sm text-gray-400">
-                          <span className="text-xs">
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          fontSize: '14px',
+                          color: '#9ca3af'
+                        }}>
+                          <span style={{ fontSize: '12px' }}>
                             {video.channel}
                           </span>
-                          <span className="text-xs">
+                          <span style={{ fontSize: '12px' }}>
                             {new Date(video.published_at).toLocaleDateString('en-GB', {
                               day: '2-digit',
                               month: '2-digit',
@@ -654,31 +1567,74 @@ function App() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                  <h3 className="text-2xl font-medium text-white mb-4">No videos found</h3>
-                  <p className="text-gray-400 font-light">Try adjusting your search terms</p>
+              <div style={{
+                textAlign: 'center',
+                paddingTop: '5rem',
+                paddingBottom: '5rem'
+              }}>
+                  <h3 style={{
+                  fontSize: '1.5rem',
+                  fontWeight: '300',
+                  color: 'white',
+                  marginBottom: '0.75rem',
+                  margin: '0 0 0.75rem 0'
+                }}>No videos found</h3>
+                <p style={{
+                  color: '#9ca3af',
+                  fontWeight: '300',
+                  margin: 0
+                }}>Try adjusting your search terms</p>
               </div>
             )}
 
             {/* Admin Pagination */}
             {totalPages > 1 && (
-              <div className="flex justify-center align-center gap-4">
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '1rem'
+              }}>
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 rounded-lg bg-gray-700 text-gray-300 hover:bg-gray-600 transition-all duration-300"
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '50px',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    background: currentPage === 1 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                    color: currentPage === 1 ? '#6b7280' : 'white',
+                    cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    fontSize: '14px'
+                  }}
                 >
                   Previous
                 </button>
 
-                <span className="px-4 py-2 text-gray-300 font-light">
+                <span style={{
+                  padding: '0.75rem 1.5rem',
+                  color: 'white',
+                  fontWeight: '300'
+                }}>
                   {currentPage} of {totalPages}
                 </span>
 
                 <button
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 rounded-lg bg-gray-700 text-gray-300 hover:bg-gray-600 transition-all duration-300"
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '50px',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    background: currentPage === totalPages ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                    color: currentPage === totalPages ? '#6b7280' : 'white',
+                    cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    fontSize: '14px'
+                  }}
                 >
                   Next
                 </button>
@@ -686,12 +1642,25 @@ function App() {
             )}
           </main>
         )}
-      </main>
+      </div>
 
       {/* Edit Video Modal */}
       {editingVideo && (
         <div
-          className="fixed inset-0 bg-black/90 backdrop-blur-20 z-50 flex items-center justify-center p-4"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(20px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '2rem'
+          }}
           onClick={() => {
             setEditingVideo(null)
             setSelectedThumbnail(null)
@@ -699,219 +1668,411 @@ function App() {
           }}
         >
           <div
-            className="w-90vw max-w-600 max-h-90vh bg-black/40 backdrop-blur-20 border border-gray-600 rounded-2xl relative flex flex-col overflow-hidden"
+            style={{
+              width: '90vw',
+              maxWidth: '600px',
+              maxHeight: '90vh',
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '24px',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden'
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Fixed Header with Close Button */}
-            <div className="relative p-6 pb-4 flex-shrink-0">
+            <div style={{
+              position: 'relative',
+              padding: '2rem 3rem 1rem 3rem',
+              flexShrink: 0
+            }}>
               {/* Close Button */}
-              <button
-                onClick={() => {
-                  setEditingVideo(null)
-                  setSelectedThumbnail(null)
-                  setThumbnailPreview(null)
-                }}
-                className="absolute top-4 right-4 w-10 h-10 p-0 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(239, 68, 68, 0.25)'
-                  e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)'
-                  e.currentTarget.style.boxShadow = '0 6px 25px 0 rgba(239, 68, 68, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15)'
-                  e.currentTarget.style.border = '1px solid rgba(239, 68, 68, 0.4)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)'
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)'
-                  e.currentTarget.style.boxShadow = '0 4px 20px 0 rgba(239, 68, 68, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-                  e.currentTarget.style.border = '1px solid rgba(239, 68, 68, 0.3)'
-                }}
-              >
-                ×
-              </button>
+            <button
+              onClick={() => {
+                setEditingVideo(null)
+                setSelectedThumbnail(null)
+                setThumbnailPreview(null)
+              }}
+              style={{
+                position: 'absolute',
+                top: '1.5rem',
+                right: '1.5rem',
+                width: '40px',
+                height: '40px',
+                padding: '0',
+                background: 'rgba(239, 68, 68, 0.15)',
+                backdropFilter: 'blur(16px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                borderRadius: '12px',
+                boxShadow: '0 4px 20px 0 rgba(239, 68, 68, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                color: 'rgba(239, 68, 68, 1)',
+                cursor: 'pointer',
+                fontSize: '18px',
+                fontWeight: '500',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                zIndex: 10
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.25)'
+                e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)'
+                e.currentTarget.style.boxShadow = '0 6px 25px 0 rgba(239, 68, 68, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15)'
+                e.currentTarget.style.border = '1px solid rgba(239, 68, 68, 0.4)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)'
+                e.currentTarget.style.transform = 'translateY(0) scale(1)'
+                e.currentTarget.style.boxShadow = '0 4px 20px 0 rgba(239, 68, 68, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                e.currentTarget.style.border = '1px solid rgba(239, 68, 68, 0.3)'
+              }}
+            >
+              ×
+            </button>
 
-              <div className="text-center">
-                <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2 leading-none">
+              <div style={{ textAlign: 'center' }}>
+                <h2 style={{
+                  fontSize: '2rem',
+                  fontWeight: '200',
+                  color: 'white',
+                  marginBottom: '0.5rem',
+                  letterSpacing: '-0.02em',
+                  margin: '0 0 0.5rem 0'
+                }}>
                   Edit Video
                 </h2>
-                <div className="w-16 h-1 mx-auto mb-4 border-b-2 rounded-full"></div>
+                <div style={{
+                  width: '60px',
+                  height: '2px',
+                  display: 'none',
+                  margin: '1rem auto',
+                  borderRadius: '1px'
+                }}></div>
               </div>
             </div>
 
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto p-6">
+            <div style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '0 3rem'
+            }}>
 
-              <form id="edit-video-form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                e.preventDefault()
-                const formData = new FormData(e.currentTarget)
-                const publishedDate = formData.get('published_date') as string | null
+            <form id="edit-video-form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault()
+              const formData = new FormData(e.currentTarget)
+              const publishedDate = formData.get('published_date') as string | null
 
-                // Handle thumbnail - use new upload if available, otherwise keep existing
-                let thumbnailUrl = editingVideo.thumbnail_url
-                if (selectedThumbnail) {
-                  // In a real app, you would upload the file to a server/cloud storage
-                  // For this demo, we'll use the base64 data URL
-                  thumbnailUrl = thumbnailPreview ? (thumbnailPreview as string) : editingVideo.thumbnail_url
-                }
+              // Handle thumbnail - use new upload if available, otherwise keep existing
+              let thumbnailUrl = editingVideo.thumbnail_url
+              if (selectedThumbnail) {
+                // In a real app, you would upload the file to a server/cloud storage
+                // For this demo, we'll use the base64 data URL
+                thumbnailUrl = thumbnailPreview ? (thumbnailPreview as string) : editingVideo.thumbnail_url
+              }
 
-                // Extract YouTube ID properly from various URL formats
-                const extractYouTubeId = (url: string): string | null => {
-                  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
-                  const match = url.match(regExp)
-                  return (match && match[2].length === 11) ? match[2] : null
-                }
+              // Extract YouTube ID properly from various URL formats
+              const extractYouTubeId = (url: string): string | null => {
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+                const match = url.match(regExp)
+                return (match && match[2].length === 11) ? match[2] : null
+              }
 
-                const youtubeUrl = formData.get('youtube_url') as string | null
-                const extractedId = youtubeUrl ? extractYouTubeId(youtubeUrl) : null
+              const youtubeUrl = formData.get('youtube_url') as string | null
+              const extractedId = youtubeUrl ? extractYouTubeId(youtubeUrl) : null
 
-                const updatedVideo = {
-                  ...editingVideo,
-                  title: formData.get('title') as string,
-                  channel: formData.get('channel') as string,
-                  description: formData.get('description') as string,
-                  youtube_url: youtubeUrl as string,
-                  youtube_id: (extractedId || editingVideo.youtube_id) as string, // Keep original ID if extraction fails
-                  thumbnail_url: thumbnailUrl as string,
-                  published_at: publishedDate ? new Date(publishedDate).toISOString() : editingVideo.published_at,
-                  added_by_admin: editingVideo.added_by_admin, // Keep original value
-                  created_at: editingVideo.created_at // Keep original value
-                }
+              const updatedVideo = {
+                ...editingVideo,
+                title: formData.get('title') as string,
+                channel: formData.get('channel') as string,
+                description: formData.get('description') as string,
+                youtube_url: youtubeUrl as string,
+                youtube_id: (extractedId || editingVideo.youtube_id) as string, // Keep original ID if extraction fails
+                thumbnail_url: thumbnailUrl as string,
+                published_at: publishedDate ? new Date(publishedDate).toISOString() : editingVideo.published_at,
+                added_by_admin: editingVideo.added_by_admin, // Keep original value
+                created_at: editingVideo.created_at // Keep original value
+              }
 
-                setVideos(prevVideos =>
-                  prevVideos.map(v => v.id === editingVideo.id ? updatedVideo : v)
-                )
-                setEditingVideo(null)
-                setSelectedThumbnail(null)
-                setThumbnailPreview(null)
-              }}>
-                <div className="mb-4">
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Title
-                  </label>
-                  <input
-                    type="text"
-                    name="title"
-                    defaultValue={editingVideo.title}
-                    required
-                    className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
+              setVideos(prevVideos =>
+                prevVideos.map(v => v.id === editingVideo.id ? updatedVideo : v)
+              )
+              setEditingVideo(null)
+              setSelectedThumbnail(null)
+              setThumbnailPreview(null)
+            }}>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  marginBottom: '0.5rem'
+                }}>
+                  Title
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  defaultValue={editingVideo.title}
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '1rem',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    color: 'white',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                />
+              </div>
 
-                <div className="mb-4">
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Channel
-                  </label>
-                  <input
-                    type="text"
-                    name="channel"
-                    defaultValue={editingVideo.channel}
-                    required
-                    className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  marginBottom: '0.5rem'
+                }}>
+                  Channel
+                </label>
+                <input
+                  type="text"
+                  name="channel"
+                  defaultValue={editingVideo.channel}
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '1rem',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    color: 'white',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                />
+              </div>
 
-                <div className="mb-4">
-                  <label className="block text-white text-sm font-medium mb-2">
-                    YouTube URL
-                  </label>
-                  <input
-                    type="url"
-                    name="youtube_url"
-                    defaultValue={editingVideo.youtube_url}
-                    required
-                    className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  marginBottom: '0.5rem'
+                }}>
+                  YouTube URL
+                </label>
+                <input
+                  type="url"
+                  name="youtube_url"
+                  defaultValue={editingVideo.youtube_url}
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '1rem',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    color: 'white',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                />
+              </div>
 
-                <div className="mb-4">
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Published Date
-                  </label>
-                  <input
-                    type="date"
-                    name="published_date"
-                    defaultValue={new Date(editingVideo.published_at).toISOString().split('T')[0]}
-                    required
-                    className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    style={{ colorScheme: 'dark' }}
-                  />
-                </div>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  marginBottom: '0.5rem'
+                }}>
+                  Published Date
+                </label>
+                <input
+                  type="date"
+                  name="published_date"
+                  defaultValue={new Date(editingVideo.published_at).toISOString().split('T')[0]}
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '1rem',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    color: 'white',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    colorScheme: 'dark'
+                  }}
+                />
+              </div>
 
-                <div className="mb-4">
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Thumbnail Image
-                  </label>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  marginBottom: '0.5rem'
+                }}>
+                  Thumbnail Image
+                </label>
 
-                  {/* Current thumbnail preview */}
-                  {(thumbnailPreview || editingVideo.thumbnail_url) && (
-                    <div className="mb-4 p-4 bg-gray-700 rounded-lg border border-gray-600">
-                      <p className="text-gray-400 text-sm mb-2">
-                        {thumbnailPreview ? 'New thumbnail preview:' : 'Current thumbnail:'}
-                      </p>
-                      <img
-                        src={thumbnailPreview || editingVideo.thumbnail_url}
-                        alt="Thumbnail preview"
-                        className="w-full max-w-200 h-auto rounded-md border border-gray-600"
-                      />
-                    </div>
-                  )}
-
-                  <div>
-                    <input
-                      id="thumbnail-upload"
-                      type="file"
-                      accept="image/*"
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        const file = e.target.files ? e.target.files[0] : null
-                        if (file) {
-                          setSelectedThumbnail(file)
-                          const reader = new FileReader()
-                          reader.onload = (event: ProgressEvent<FileReader>) => {
-                            if (event.target && typeof event.target.result === 'string') {
-                              setThumbnailPreview(event.target.result)
-                            }
-                          }
-                          reader.readAsDataURL(file)
-                        }
+                {/* Current thumbnail preview */}
+                {(thumbnailPreview || editingVideo.thumbnail_url) && (
+                  <div style={{
+                    marginBottom: '1rem',
+                    padding: '1rem',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                  }}>
+                    <p style={{
+                      color: '#9ca3af',
+                      fontSize: '12px',
+                      marginBottom: '0.5rem',
+                      margin: '0 0 0.5rem 0'
+                    }}>
+                      {thumbnailPreview ? 'New thumbnail preview:' : 'Current thumbnail:'}
+                    </p>
+                    <img
+                      src={thumbnailPreview || editingVideo.thumbnail_url}
+                      alt="Thumbnail preview"
+                      style={{
+                        width: '100%',
+                        maxWidth: '200px',
+                        height: 'auto',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(255, 255, 255, 0.2)'
                       }}
-                      className="hidden"
                     />
-                    <label
-                      htmlFor="thumbnail-upload"
-                      className="flex w-full p-3 bg-gray-600 text-gray-300 rounded-lg hover:bg-gray-500 transition-all duration-300"
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)'
-                      }}
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                      </svg>
-                      {selectedThumbnail ? selectedThumbnail.name : 'Click to upload new thumbnail image'}
-                    </label>
                   </div>
-                </div>
+                )}
 
-                <div className="mb-6">
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Description
-                  </label>
-                  <textarea
-                    name="description"
-                    defaultValue={editingVideo.description}
-                    rows={3}
-                    className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <div>
+                  <input
+                    id="thumbnail-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      const file = e.target.files ? e.target.files[0] : null
+                      if (file) {
+                        setSelectedThumbnail(file)
+                        const reader = new FileReader()
+                        reader.onload = (event: ProgressEvent<FileReader>) => {
+                          if (event.target && typeof event.target.result === 'string') {
+                            setThumbnailPreview(event.target.result)
+                          }
+                        }
+                        reader.readAsDataURL(file)
+                      }
+                    }}
+                    style={{
+                      display: 'none'
+                    }}
                   />
+                  <label
+                    htmlFor="thumbnail-upload"
+                    style={{
+                      display: 'flex',
+                      width: '100%',
+                      padding: '1rem',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '12px',
+                      color: '#9ca3af',
+                      fontSize: '16px',
+                      textAlign: 'center',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)'
+                    }}
+                  >
+                    <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    {selectedThumbnail ? selectedThumbnail.name : 'Click to upload new thumbnail image'}
+                  </label>
                 </div>
+              </div>
 
-              </form>
+              <div style={{ marginBottom: '2rem' }}>
+                <label style={{
+                  display: 'block',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  marginBottom: '0.5rem'
+                }}>
+                  Description
+                </label>
+                <textarea
+                  name="description"
+                  defaultValue={editingVideo.description}
+                  rows={3}
+                  style={{
+                    width: '100%',
+                    padding: '1rem',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    color: 'white',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    resize: 'vertical',
+                    minHeight: '100px'
+                  }}
+                />
+              </div>
+
+            </form>
             </div>
 
             {/* Fixed Footer with Action Buttons */}
-            <div className="flex-shrink-0 p-6 pb-4 border-t border-gray-600 bg-black/20 backdrop-blur-20">
-              <div className="flex gap-4">
+            <div style={{
+              flexShrink: 0,
+              padding: '1.5rem 3rem 2rem 3rem',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'rgba(0, 0, 0, 0.2)',
+              backdropFilter: 'blur(20px)'
+            }}>
+              <div style={{
+                display: 'flex',
+                gap: '1rem'
+              }}>
                 <button
                   type="button"
                   onClick={() => {
@@ -919,7 +2080,22 @@ function App() {
                     setSelectedThumbnail(null)
                     setThumbnailPreview(null)
                   }}
-                  className="flex-1 px-4 py-3 bg-gray-600 text-gray-300 rounded-lg hover:bg-gray-500 transition-all duration-300"
+                  style={{
+                    flex: 1,
+                    padding: '1.25rem 2rem',
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    backdropFilter: 'blur(16px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.125)',
+                    borderRadius: '16px',
+                    boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.2)',
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: '16px',
+                    fontWeight: '400',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    letterSpacing: '0.5px'
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'
                     e.currentTarget.style.transform = 'translateY(-2px)'
@@ -936,7 +2112,22 @@ function App() {
                 <button
                   type="submit"
                   form="edit-video-form"
-                  className="flex-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300"
+                  style={{
+                    flex: 2,
+                    padding: '1.25rem 2rem',
+                    background: 'rgba(255, 255, 255, 0.12)',
+                    backdropFilter: 'blur(16px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '16px',
+                    boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                    color: 'white',
+                    fontSize: '16px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    letterSpacing: '0.5px'
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.18)'
                     e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)'
@@ -961,7 +2152,20 @@ function App() {
       {/* Upload Video Modal */}
       {showUploadForm && (
         <div
-          className="fixed inset-0 bg-black/90 backdrop-blur-20 z-50 flex items-center justify-center p-4"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(20px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '2rem'
+          }}
           onClick={() => {
             setShowUploadForm(false)
             setUploadVideoData(null)
@@ -969,14 +2173,36 @@ function App() {
           }}
         >
           <div
-            className="w-90vw max-w-600 bg-black/40 backdrop-blur-20 border border-gray-600 rounded-2xl p-6 relative"
+            style={{
+              width: '90vw',
+              maxWidth: '600px',
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '24px',
+              padding: '3rem',
+              position: 'relative'
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="text-center mb-4">
-              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2 leading-none">
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <h2 style={{
+                fontSize: '2rem',
+                fontWeight: '200',
+                color: 'white',
+                marginBottom: '0.5rem',
+                letterSpacing: '-0.02em',
+                margin: '0 0 0.5rem 0'
+              }}>
                 {uploadVideoData ? 'Add Video' : 'Upload New Video'}
               </h2>
-              <div className="w-16 h-1 mx-auto mb-4 border-b-2 rounded-full"></div>
+              <div style={{
+                width: '60px',
+                height: '2px',
+                display: 'none',
+                margin: '1rem auto',
+                borderRadius: '1px'
+              }}></div>
             </div>
 
             <form onSubmit={async (e: React.FormEvent<HTMLFormElement>) => {
@@ -1027,8 +2253,14 @@ function App() {
                 setUploadStep(1)
               }
             }}>
-              <div className="mb-4">
-                <label className="block text-white text-sm font-medium mb-2">
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  marginBottom: '0.5rem'
+                }}>
                   YouTube URL *
                 </label>
                 <input
@@ -1038,7 +2270,19 @@ function App() {
                   placeholder="https://www.youtube.com/watch?v=..."
                   required
                   disabled={uploadStep === 2}
-                  className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{
+                    width: '100%',
+                    padding: '1rem',
+                    background: uploadStep === 2 ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    color: uploadStep === 2 ? '#9ca3af' : 'white',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    cursor: uploadStep === 2 ? 'not-allowed' : 'text'
+                  }}
                   onFocus={(e) => {
                     if (uploadStep !== 2) {
                       e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
@@ -1056,8 +2300,14 @@ function App() {
 
               {uploadStep === 2 && uploadVideoData && (
                 <>
-                  <div className="mb-4">
-                    <label className="block text-white text-sm font-medium mb-2">
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <label style={{
+                      display: 'block',
+                      color: 'white',
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      marginBottom: '0.5rem'
+                    }}>
                       Title *
                     </label>
                     <input
@@ -1066,7 +2316,18 @@ function App() {
                       defaultValue={uploadVideoData?.title || ''}
                       placeholder="Video title"
                       required
-                      className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      style={{
+                        width: '100%',
+                        padding: '1rem',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '12px',
+                        color: 'white',
+                        fontSize: '16px',
+                        outline: 'none',
+                        transition: 'all 0.3s ease'
+                      }}
                       onFocus={(e) => {
                         e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
                         e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
@@ -1078,8 +2339,14 @@ function App() {
                     />
                   </div>
 
-                  <div className="mb-6">
-                    <label className="block text-white text-sm font-medium mb-2">
+                  <div style={{ marginBottom: '2rem' }}>
+                    <label style={{
+                      display: 'block',
+                      color: 'white',
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      marginBottom: '0.5rem'
+                    }}>
                       Description
                     </label>
                     <textarea
@@ -1087,7 +2354,20 @@ function App() {
                       defaultValue={uploadVideoData?.description || ''}
                       placeholder="Video description"
                       rows={3}
-                      className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      style={{
+                        width: '100%',
+                        padding: '1rem',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '12px',
+                        color: 'white',
+                        fontSize: '16px',
+                        outline: 'none',
+                        transition: 'all 0.3s ease',
+                        resize: 'vertical',
+                        minHeight: '100px'
+                      }}
                       onFocus={(e) => {
                         e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
                         e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
@@ -1099,8 +2379,14 @@ function App() {
                     />
                   </div>
 
-                  <div className="mb-6">
-                    <label className="block text-white text-sm font-medium mb-2">
+                  <div style={{ marginBottom: '2rem' }}>
+                    <label style={{
+                      display: 'block',
+                      color: 'white',
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      marginBottom: '0.5rem'
+                    }}>
                       Channel
                     </label>
                     <input
@@ -1109,7 +2395,18 @@ function App() {
                       defaultValue={uploadVideoData?.channel || ''}
                       placeholder="Channel name"
                       required
-                      className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      style={{
+                        width: '100%',
+                        padding: '1rem',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '12px',
+                        color: 'white',
+                        fontSize: '16px',
+                        outline: 'none',
+                        transition: 'all 0.3s ease'
+                      }}
                       onFocus={(e) => {
                         e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
                         e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
@@ -1121,15 +2418,32 @@ function App() {
                     />
                   </div>
 
-                  <div className="mb-6">
-                    <label className="block text-white text-sm font-medium mb-2">
+                  <div style={{ marginBottom: '2rem' }}>
+                    <label style={{
+                      display: 'block',
+                      color: 'white',
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      marginBottom: '0.5rem'
+                    }}>
                       Published Date
                     </label>
                     <input
                       type="date"
                       name="published_date"
                       defaultValue={uploadVideoData?.published_at ? new Date(uploadVideoData.published_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}
-                      className="w-full p-3 bg-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      style={{
+                        width: '100%',
+                        padding: '1rem',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '12px',
+                        color: 'white',
+                        fontSize: '16px',
+                        outline: 'none',
+                        transition: 'all 0.3s ease'
+                      }}
                       onFocus={(e) => {
                         e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
                         e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
@@ -1143,7 +2457,7 @@ function App() {
                 </>
               )}
 
-              <div className="flex gap-4">
+              <div style={{ display: 'flex', gap: '1rem' }}>
                 <button
                   type="button"
                   onClick={() => {
@@ -1151,7 +2465,19 @@ function App() {
                     setUploadVideoData(null)
                     setUploadStep(1)
                   }}
-                  className="flex-1 px-4 py-3 bg-gray-600 text-gray-300 rounded-lg hover:bg-gray-500 transition-all duration-300"
+                  style={{
+                    flex: 1,
+                    padding: '1rem',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: '16px',
+                    fontWeight: '400',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'
                   }}
@@ -1164,7 +2490,21 @@ function App() {
 
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300"
+                  style={{
+                    flex: 1,
+                    padding: '1rem',
+                    background: 'rgba(255, 255, 255, 0.12)',
+                    backdropFilter: 'blur(16px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 24px 0 rgba(31, 38, 135, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                    color: 'white',
+                    fontSize: '16px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.18)'
                     e.currentTarget.style.transform = 'translateY(-2px)'
@@ -1189,11 +2529,35 @@ function App() {
       {/* Inline Video Player */}
       {playingVideo && (
         <div
-          className="fixed inset-0 bg-black/90 backdrop-blur-20 z-50 flex items-center justify-center p-4"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(20px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '2rem'
+          }}
           onClick={() => setPlayingVideo(null)}
         >
           <div
-            className="w-90vw h-80vh max-w-1200 bg-black/40 backdrop-blur-20 border border-gray-600 rounded-2xl overflow-hidden relative transition-all"
+            style={{
+              width: '90vw',
+              height: '80vh',
+              maxWidth: '1200px',
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              position: 'relative',
+              transition: 'all 0.3s ease'
+            }}
             onClick={(e) => e.stopPropagation()}
           >
 
@@ -1201,7 +2565,11 @@ function App() {
             {/* YouTube Iframe */}
             <iframe
               src={`https://www.youtube.com/embed/${playingVideo.youtube_id}?autoplay=1&rel=0&modestbranding=1`}
-              className="w-full h-full border-none"
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none'
+              }}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
@@ -1461,22 +2829,6 @@ function App() {
             -ms-overflow-style: none;
             scrollbar-width: none;
             scroll-behavior: smooth;
-          }
-
-          /* Auto-fit grid layout */
-          .grid-cols-auto-fit {
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          }
-
-          /* Enhanced shadow support */
-          .shadow-3xl {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
-          }
-
-          /* Focus indicators for accessibility */
-          button:focus-visible, input:focus-visible, select:focus-visible {
-            outline: 2px solid #60a5fa;
-            outline-offset: 2px;
           }
 
           /* Mobile and Desktop Background Control */
