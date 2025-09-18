@@ -245,4 +245,9 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+
+  /* Responsive logo sizing on mobile */
+  img[alt="Castillo Logo"] {
+    height: clamp(32px, 6vw, 48px) !important;
+  }
 }

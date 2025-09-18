@@ -517,6 +517,25 @@ function App() {
       }}></div>
       */}
 
+      {/* Logo */}
+      <div style={{
+        position: 'absolute',
+        top: '1rem',
+        left: '2rem',
+        zIndex: 50
+      }}>
+        <img
+          src="/castillo-logo.svg"
+          alt="Castillo Logo"
+          style={{
+            height: '48px',
+            width: 'auto',
+            filter: 'brightness(0.9)',
+            opacity: 0.95
+          }}
+        />
+      </div>
+
       {/* Admin Button */}
       {currentView === 'main' && (
         <div style={{
