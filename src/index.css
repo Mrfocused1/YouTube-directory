@@ -92,15 +92,15 @@ body {
 /* Mobile: 2 cards (Apple's minimum touch target considerations) */
 @media (max-width: 767px) {
   .video-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    padding: 0 8px;
-    margin: 0;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    padding: 0 8px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
   }
 }
 
@@ -230,13 +230,13 @@ body {
 
   /* Ensure video cards fit properly on mobile */
   .glass-card {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    padding: 8px;
-    margin: 0;
-    border-radius: 12px;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    padding: 8px !important;
+    margin: 0 !important;
+    border-radius: 12px !important;
   }
 
   /* Prevent text overflow in mobile cards */
@@ -275,9 +275,9 @@ body {
 
   /* Force container constraints on mobile */
   .video-grid > * {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    flex-shrink: 1;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
   }
 }

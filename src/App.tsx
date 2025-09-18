@@ -757,6 +757,7 @@ function App() {
               {currentVideos.map((video) => (
                 <div
                   key={video.id}
+                  className="glass-card"
                   style={{
                     cursor: 'pointer',
                     transform: 'translateY(0)',
@@ -1334,6 +1335,7 @@ function App() {
                 {currentVideos.map((video) => (
                   <div
                     key={video.id}
+                    className="glass-card"
                     style={{
                       transform: 'translateY(0)',
                       transition: 'all 0.3s ease'
