@@ -1,128 +1,128 @@
 import { chromium } from 'playwright';
-import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-async function captureScreenshots() {
-    const browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext({
-        viewport: { width: 375, height: 812 }, // iPhone 12 Pro viewport
-        deviceScaleFactor: 3, // High DPI for clear screenshots
-    });
+(async () => {
+  const browser = await chromium.launch({
+    headless: true
+  });
 
-    const page = await context.newPage();
+  const context = await browser.newContext({
+    viewport: { width: 375, height: 812 }, // iPhone X dimensions
+    deviceScaleFactor: 2, // High DPI for clear screenshots
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
+  });
 
-    console.log('Navigating to YouTube Directory...');
-    await page.goto('https://youtube-directory-5adk6lagv-paulpauls-projects.vercel.app', {
-        waitUntil: 'networkidle',
-        timeout: 30000
-    });
+  const page = await context.newPage();
 
-    // Wait for content to load
-    await page.waitForTimeout(2000);
+  console.log('Navigating to YouTube Directory...');
+  await page.goto('https://youtube-directory.vercel.app', {
+    waitUntil: 'networkidle',
+    timeout: 30000
+  });
 
-    // Create screenshots directory if it doesn't exist
-    const screenshotDir = path.join(__dirname, 'screenshots');
-    if (!fs.existsSync(screenshotDir)) {
-        fs.mkdirSync(screenshotDir);
-    }
+  // Wait for content to load
+  await page.waitForTimeout(2000);
 
-    // Capture full page screenshot
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const fullPagePath = path.join(screenshotDir, `mobile-fullpage-${timestamp}.png`);
-    await page.screenshot({
-        path: fullPagePath,
-        fullPage: true
-    });
-    console.log(`Full page screenshot saved: ${fullPagePath}`);
+  // Capture full page screenshot
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const screenshotPath = path.join(__dirname, `mobile-screenshot-${timestamp}.png`);
 
-    // Capture viewport screenshot (above the fold)
-    const viewportPath = path.join(screenshotDir, `mobile-viewport-${timestamp}.png`);
-    await page.screenshot({
-        path: viewportPath,
-        fullPage: false
-    });
-    console.log(`Viewport screenshot saved: ${viewportPath}`);
+  await page.screenshot({
+    path: screenshotPath,
+    fullPage: true
+  });
 
-    // Scroll to video cards section and capture
-    await page.evaluate(() => {
-        const cards = document.querySelector('.grid, [class*="grid"], .video-grid, .cards-container');
-        if (cards) {
-            cards.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
-    await page.waitForTimeout(1000);
+  console.log(`Screenshot saved: ${screenshotPath}`);
 
-    const cardsPath = path.join(screenshotDir, `mobile-cards-${timestamp}.png`);
-    await page.screenshot({
-        path: cardsPath,
-        fullPage: false
-    });
-    console.log(`Video cards screenshot saved: ${cardsPath}`);
+  // Check for horizontal overflow
+  const hasHorizontalScroll = await page.evaluate(() => {
+    return document.documentElement.scrollWidth > document.documentElement.clientWidth;
+  });
 
-    // Check for horizontal overflow
-    const hasOverflow = await page.evaluate(() => {
-        const body = document.body;
-        const html = document.documentElement;
-        const viewportWidth = window.innerWidth;
-        const scrollWidth = Math.max(
-            body.scrollWidth,
-            body.offsetWidth,
-            html.clientWidth,
-            html.scrollWidth,
-            html.offsetWidth
-        );
-        return scrollWidth > viewportWidth;
-    });
+  console.log(`Horizontal scroll detected: ${hasHorizontalScroll}`);
 
-    console.log(`\nHorizontal overflow detected: ${hasOverflow ? 'YES' : 'NO'}`);
-    console.log(`Viewport width: 375px`);
+  // Get viewport and content dimensions
+  const dimensions = await page.evaluate(() => {
+    return {
+      viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight
+      },
+      document: {
+        width: document.documentElement.scrollWidth,
+        height: document.documentElement.scrollHeight
+      },
+      body: {
+        width: document.body.scrollWidth,
+        height: document.body.scrollHeight
+      }
+    };
+  });
 
-    // Get information about video cards
-    const cardInfo = await page.evaluate(() => {
-        const cards = document.querySelectorAll('[class*="card"], .video-card, article, .item');
-        const info = {
-            totalCards: cards.length,
-            cardsInfo: []
-        };
+  console.log('Dimensions:', JSON.stringify(dimensions, null, 2));
 
-        cards.forEach((card, index) => {
-            if (index < 3) { // Check first 3 cards
-                const rect = card.getBoundingClientRect();
-                const styles = window.getComputedStyle(card);
-                info.cardsInfo.push({
-                    index: index + 1,
-                    width: rect.width,
-                    left: rect.left,
-                    right: rect.right,
-                    isVisible: rect.right <= window.innerWidth,
-                    overflow: rect.right > window.innerWidth,
-                    margin: styles.margin,
-                    padding: styles.padding
-                });
-            }
+  // Check for elements extending beyond viewport
+  const overflowingElements = await page.evaluate(() => {
+    const elements = [];
+    const allElements = document.querySelectorAll('*');
+
+    allElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.right > window.innerWidth || rect.left < 0) {
+        elements.push({
+          tag: el.tagName,
+          class: el.className,
+          id: el.id,
+          rect: {
+            left: rect.left,
+            right: rect.right,
+            width: rect.width
+          },
+          overflow: rect.right - window.innerWidth
         });
-
-        return info;
+      }
     });
 
-    console.log(`\nVideo Cards Analysis:`);
-    console.log(`Total cards found: ${cardInfo.totalCards}`);
-    cardInfo.cardsInfo.forEach(card => {
-        console.log(`\nCard ${card.index}:`);
-        console.log(`  Width: ${card.width}px`);
-        console.log(`  Position: left=${card.left}px, right=${card.right}px`);
-        console.log(`  Fully visible: ${card.isVisible ? 'YES' : 'NO'}`);
-        console.log(`  Extends beyond viewport: ${card.overflow ? 'YES (CROPPED)' : 'NO'}`);
+    return elements.slice(0, 10); // Limit to first 10 overflowing elements
+  });
+
+  if (overflowingElements.length > 0) {
+    console.log('\nElements extending beyond viewport:');
+    overflowingElements.forEach(el => {
+      console.log(`- ${el.tag}${el.id ? '#' + el.id : ''}${el.class ? '.' + el.class : ''}`);
+      console.log(`  Position: left=${el.rect.left}px, right=${el.rect.right}px, width=${el.rect.width}px`);
+      console.log(`  Overflow: ${el.overflow}px beyond viewport\n`);
     });
+  }
 
-    await browser.close();
+  // Check grid layout specifics
+  const gridInfo = await page.evaluate(() => {
+    const grid = document.querySelector('.grid, [class*="grid"]');
+    if (!grid) return null;
 
-    console.log('\nScreenshot capture complete!');
-    console.log(`Screenshots saved in: ${screenshotDir}`);
-}
+    const cards = grid.querySelectorAll('*');
+    const gridStyles = window.getComputedStyle(grid);
 
-captureScreenshots().catch(console.error);
+    return {
+      gridClass: grid.className,
+      gridWidth: grid.offsetWidth,
+      gridPadding: gridStyles.padding,
+      gridGap: gridStyles.gap || gridStyles.gridGap,
+      gridTemplateColumns: gridStyles.gridTemplateColumns,
+      cardCount: cards.length,
+      firstCardWidth: cards[0] ? cards[0].offsetWidth : null,
+      containerWidth: grid.parentElement ? grid.parentElement.offsetWidth : null
+    };
+  });
+
+  if (gridInfo) {
+    console.log('\nGrid Layout Information:');
+    console.log(JSON.stringify(gridInfo, null, 2));
+  }
+
+  await browser.close();
+})();
