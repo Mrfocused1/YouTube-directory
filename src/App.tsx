@@ -1980,8 +1980,8 @@ function App() {
                         setSelectedThumbnail(file)
                         const reader = new FileReader()
                         reader.onload = (event: ProgressEvent<FileReader>) => {
-                          if (event.target && event.target.result) {
-                            setThumbnailPreview(event.target.result as string)
+                          if (event.target && typeof event.target.result === 'string') {
+                            setThumbnailPreview(event.target.result)
                           }
                         }
                         reader.readAsDataURL(file)
