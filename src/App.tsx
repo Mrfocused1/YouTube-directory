@@ -525,14 +525,12 @@ function App() {
         zIndex: 50
       }}>
         <img
-          src="/castillo-logo.svg"
+          src="/castillo-logo.png"
           alt="Castillo Logo"
           style={{
             height: '48px',
             width: 'auto',
-            filter: 'brightness(0.9) contrast(1.2)',
-            opacity: 0.95,
-            mixBlendMode: 'multiply'
+            opacity: 0.95
           }}
         />
       </div>
