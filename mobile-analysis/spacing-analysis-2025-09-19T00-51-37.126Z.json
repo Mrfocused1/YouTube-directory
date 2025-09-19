@@ -1,0 +1,273 @@
+{
+  "timestamp": "2025-09-19T00:51:37.623Z",
+  "viewport": {
+    "width": 375,
+    "height": 812
+  },
+  "containers": [
+    {
+      "description": "Body",
+      "selector": "body",
+      "tagName": "BODY",
+      "id": null,
+      "className": null,
+      "spacing": {
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "width": "375px",
+        "maxWidth": "375px",
+        "boxSizing": "border-box"
+      },
+      "position": {
+        "left": 0,
+        "right": 0,
+        "width": 375,
+        "viewportWidth": 375
+      },
+      "computed": {
+        "totalHorizontalMargin": 0,
+        "totalHorizontalPadding": 0,
+        "actualWidth": 375,
+        "distanceFromLeftEdge": 0,
+        "distanceFromRightEdge": 0
+      }
+    },
+    {
+      "description": "Root Container (#root)",
+      "selector": "div",
+      "tagName": "DIV",
+      "id": "root",
+      "className": null,
+      "spacing": {
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "width": "375px",
+        "maxWidth": "100%",
+        "boxSizing": "border-box"
+      },
+      "position": {
+        "left": 0,
+        "right": 0,
+        "width": 375,
+        "viewportWidth": 375
+      },
+      "computed": {
+        "totalHorizontalMargin": 0,
+        "totalHorizontalPadding": 0,
+        "actualWidth": 375,
+        "distanceFromLeftEdge": 0,
+        "distanceFromRightEdge": 0
+      }
+    },
+    {
+      "description": "Video Grid (.video-grid)",
+      "selector": "video-grid",
+      "tagName": "DIV",
+      "id": null,
+      "className": "video-grid",
+      "spacing": {
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "4px",
+        "paddingBottom": "0px",
+        "paddingLeft": "4px",
+        "width": "327px",
+        "maxWidth": "100%",
+        "boxSizing": "border-box"
+      },
+      "position": {
+        "left": 24,
+        "right": 24,
+        "width": 327,
+        "viewportWidth": 375
+      },
+      "computed": {
+        "totalHorizontalMargin": 0,
+        "totalHorizontalPadding": 8,
+        "actualWidth": 327,
+        "distanceFromLeftEdge": 24,
+        "distanceFromRightEdge": 24
+      }
+    },
+    {
+      "description": "Parent Level 1 (MAIN)",
+      "selector": "main",
+      "tagName": "MAIN",
+      "id": null,
+      "className": null,
+      "spacing": {
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "24px",
+        "paddingBottom": "80px",
+        "paddingLeft": "24px",
+        "width": "375px",
+        "maxWidth": "1200px",
+        "boxSizing": "border-box"
+      },
+      "position": {
+        "left": 0,
+        "right": 0,
+        "width": 375,
+        "viewportWidth": 375
+      },
+      "computed": {
+        "totalHorizontalMargin": 0,
+        "totalHorizontalPadding": 48,
+        "actualWidth": 375,
+        "distanceFromLeftEdge": 0,
+        "distanceFromRightEdge": 0
+      }
+    },
+    {
+      "description": "Parent Level 2 (DIV)",
+      "selector": "div",
+      "tagName": "DIV",
+      "id": null,
+      "className": null,
+      "spacing": {
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "64px",
+        "paddingRight": "0px",
+        "paddingBottom": "32px",
+        "paddingLeft": "0px",
+        "width": "375px",
+        "maxWidth": "none",
+        "boxSizing": "border-box"
+      },
+      "position": {
+        "left": 0,
+        "right": 0,
+        "width": 375,
+        "viewportWidth": 375
+      },
+      "computed": {
+        "totalHorizontalMargin": 0,
+        "totalHorizontalPadding": 0,
+        "actualWidth": 375,
+        "distanceFromLeftEdge": 0,
+        "distanceFromRightEdge": 0
+      }
+    },
+    {
+      "description": "Parent Level 3 (DIV)",
+      "selector": "div",
+      "tagName": "DIV",
+      "id": null,
+      "className": null,
+      "spacing": {
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "width": "375px",
+        "maxWidth": "none",
+        "boxSizing": "border-box"
+      },
+      "position": {
+        "left": 0,
+        "right": 0,
+        "width": 375,
+        "viewportWidth": 375
+      },
+      "computed": {
+        "totalHorizontalMargin": 0,
+        "totalHorizontalPadding": 0,
+        "actualWidth": 375,
+        "distanceFromLeftEdge": 0,
+        "distanceFromRightEdge": 0
+      }
+    },
+    {
+      "description": "Parent Level 4 (DIV#root)",
+      "selector": "div",
+      "tagName": "DIV",
+      "id": "root",
+      "className": null,
+      "spacing": {
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "width": "375px",
+        "maxWidth": "100%",
+        "boxSizing": "border-box"
+      },
+      "position": {
+        "left": 0,
+        "right": 0,
+        "width": 375,
+        "viewportWidth": 375
+      },
+      "computed": {
+        "totalHorizontalMargin": 0,
+        "totalHorizontalPadding": 0,
+        "actualWidth": 375,
+        "distanceFromLeftEdge": 0,
+        "distanceFromRightEdge": 0
+      }
+    },
+    {
+      "description": "Container (main)",
+      "selector": "main",
+      "tagName": "MAIN",
+      "id": null,
+      "className": null,
+      "spacing": {
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "24px",
+        "paddingBottom": "80px",
+        "paddingLeft": "24px",
+        "width": "375px",
+        "maxWidth": "1200px",
+        "boxSizing": "border-box"
+      },
+      "position": {
+        "left": 0,
+        "right": 0,
+        "width": 375,
+        "viewportWidth": 375
+      },
+      "computed": {
+        "totalHorizontalMargin": 0,
+        "totalHorizontalPadding": 48,
+        "actualWidth": 375,
+        "distanceFromLeftEdge": 0,
+        "distanceFromRightEdge": 0
+      }
+    }
+  ]
+}

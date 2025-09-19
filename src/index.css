@@ -37,6 +37,13 @@ body {
   margin: 0;
 }
 
+/* Main content responsive padding */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem 1.5rem;
+}
+
 /* Mobile viewport fixes */
 @media (max-width: 767px) {
   * {
@@ -51,6 +58,11 @@ body {
   #root {
     width: 100%;
     overflow-x: hidden;
+  }
+
+  /* Remove horizontal padding on mobile for main content */
+  .main-content {
+    padding: 0 0 5rem 0 !important;
   }
 }
 
@@ -92,8 +104,8 @@ body {
   .video-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important;
-    padding: 0 4px !important;
+    gap: 4px !important;
+    padding: 0 !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;

@@ -745,11 +745,7 @@ function App() {
 
         {/* Main Content */}
         {currentView === 'main' && (
-          <main style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '0 1.5rem 5rem 1.5rem'
-          }}>
+          <main className="main-content">
 
           {/* Video Grid */}
           {filteredVideos.length > 0 ? (
@@ -953,10 +949,8 @@ function App() {
 
         {/* Login Page */}
         {currentView === 'login' && (
-          <main style={{
+          <main className="main-content" style={{
             maxWidth: '500px',
-            margin: '0 auto',
-            padding: '0 1.5rem 5rem 1.5rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -1144,11 +1138,7 @@ function App() {
 
         {/* Admin Dashboard */}
         {currentView === 'admin' && isLoggedIn && (
-          <main style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '0 1.5rem 5rem 1.5rem'
-          }}>
+          <main className="main-content">
             {/* Admin Header */}
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
               <h1 style={{
