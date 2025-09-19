@@ -1,0 +1,55 @@
+{
+  "viewport": {
+    "width": 375,
+    "height": 812
+  },
+  "grid": {
+    "cardsPerRow": 4,
+    "totalCards": 12,
+    "containerWidth": 375
+  },
+  "cards": {
+    "dimensions": {
+      "width": 178,
+      "height": 224,
+      "aspectRatio": "0.79"
+    },
+    "spacing": {
+      "horizontalGap": -175,
+      "verticalGap": 8,
+      "leftMargin": 6,
+      "rightMargin": -38
+    },
+    "styles": {
+      "padding": "2px",
+      "borderRadius": "6px",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none"
+    }
+  },
+  "thumbnail": {
+    "width": 214,
+    "height": 120,
+    "aspectRatio": "1.78",
+    "percentOfCard": "54%"
+  },
+  "typography": {
+    "title": {
+      "text": "Rick Astley - Never Gonna Give",
+      "fontSize": "10.4px",
+      "lineHeight": "10.4px",
+      "fontWeight": "500",
+      "color": "rgb(255, 255, 255)",
+      "maxLines": 2
+    },
+    "channel": null
+  },
+  "recommendations": {
+    "cardWidth": "178px (Current)",
+    "idealCardWidth": "160-175px (Mobile best practice)",
+    "currentAspectRatio": "0.79",
+    "idealAspectRatio": "0.65-0.75 (Mobile cards)",
+    "spacing": "Too tight - recommend 12-16px"
+  }
+}

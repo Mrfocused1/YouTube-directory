@@ -1,0 +1,67 @@
+{
+  "viewport": {
+    "width": 375,
+    "height": 812,
+    "scrollHeight": 1179
+  },
+  "grid": {
+    "display": "block",
+    "gridTemplateColumns": "none",
+    "gap": "normal",
+    "padding": "0px",
+    "margin": "0px",
+    "width": 375
+  },
+  "card": {
+    "count": 16,
+    "cardsPerRow": null,
+    "dimensions": {
+      "width": 375,
+      "height": 1178.5,
+      "aspectRatio": "0.32"
+    },
+    "spacing": {
+      "horizontalGap": -375,
+      "verticalGap": 0,
+      "marginLeft": 0,
+      "marginRight": 375
+    },
+    "styles": {
+      "padding": "0px",
+      "margin": "0px",
+      "borderRadius": "0px",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "boxShadow": "none"
+    }
+  },
+  "thumbnail": {
+    "dimensions": {
+      "width": 40,
+      "height": 40,
+      "aspectRatio": "1.00"
+    },
+    "styles": {
+      "objectFit": "fill",
+      "borderRadius": "0px"
+    }
+  },
+  "typography": {
+    "title": {
+      "text": "Links to most videos posted on this page",
+      "fontSize": "18px",
+      "lineHeight": "normal",
+      "fontWeight": "400",
+      "color": "rgb(156, 163, 175)",
+      "numberOfLines": null
+    },
+    "channel": {
+      "text": "Links to most videos posted on this page",
+      "fontSize": "18px",
+      "lineHeight": "normal",
+      "color": "rgb(156, 163, 175)"
+    }
+  },
+  "performance": {
+    "visibleCards": 12
+  }
+}
