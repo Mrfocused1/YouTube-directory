@@ -104,8 +104,8 @@ body {
   .video-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
-    padding: 0 8px !important;
+    gap: 24px !important;
+    padding: 0 16px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
