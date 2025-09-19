@@ -87,13 +87,13 @@ body {
   padding: 0 clamp(1rem, 3vw, 2rem);
 }
 
-/* Mobile: 2 cards per row with 16px page margins */
+/* Mobile: 2 cards per row with minimal margins to prevent cropping */
 @media (max-width: 767px) {
   .video-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
-    padding: 0 16px !important;
+    gap: 8px !important;
+    padding: 0 4px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
@@ -232,9 +232,9 @@ body {
     max-width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
-    padding: 16px !important;
+    padding: 8px !important;
     margin: 0 !important;
-    border-radius: 16px !important;
+    border-radius: 12px !important;
   }
 
   /* Prevent text overflow in mobile cards */
