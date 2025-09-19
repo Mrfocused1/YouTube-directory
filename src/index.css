@@ -104,8 +104,8 @@ body {
   .video-grid {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 12px !important;
-    padding: 0 12px !important;
+    gap: 10px !important;
+    padding: 0 10px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
@@ -312,7 +312,60 @@ body {
   /* Add padding to text content area only */
   .glass-card > *:not(img) {
     margin: 0 !important;
-    padding: 4px 8px !important;
+    padding: 4px 6px !important;
+  }
+
+  /* Critical: Constrain card width to prevent admin button trimming */
+  .glass-card {
+    max-width: 167px !important;
+    width: 100% !important;
+  }
+
+  /* Optimize admin buttons for mobile */
+  .admin-buttons {
+    display: flex !important;
+    gap: 4px !important;
+    padding: 2px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .admin-button,
+  .btn-admin {
+    flex: 1 !important;
+    padding: 4px 2px !important;
+    font-size: 0.65rem !important;
+    min-height: 28px !important;
+    margin: 0 !important;
+    border-radius: 4px !important;
+  }
+
+  /* Make delete button more compact */
+  .btn-delete,
+  .delete-btn {
+    font-size: 0.7rem !important;
+    padding: 4px 3px !important;
+  }
+
+  /* Additional admin button targeting */
+  button[class*="admin"],
+  button[class*="delete"],
+  button[class*="edit"],
+  button[class*="play"],
+  .glass-card button {
+    font-size: 0.65rem !important;
+    padding: 4px 2px !important;
+    margin: 1px !important;
+    max-width: 50px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  /* Force card containers to respect width limits */
+  .video-grid > * {
+    max-width: 167px !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
   }
 
   /* Ensure thumbnails have no padding and proper sizing */

@@ -1,285 +1,185 @@
 import { chromium } from 'playwright';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function analyzeAdminMobile() {
-  console.log('Starting mobile UI analysis of admin page...');
-
-  const browser = await chromium.launch({
-    headless: true,
-    args: ['--disable-dev-shm-usage']
-  });
-
+  const browser = await chromium.launch({ headless: false });
   const context = await browser.newContext({
-    viewport: { width: 375, height: 812 }, // iPhone 12/13/14 viewport
-    deviceScaleFactor: 2,
-    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1'
+    viewport: { width: 375, height: 812 }, // iPhone X dimensions
+    deviceScaleFactor: 2, // High DPI for clear screenshots
   });
 
   const page = await context.newPage();
 
-  try {
-    // Navigate to the main page
-    console.log('Navigating to https://youtube-directory.vercel.app...');
-    await page.goto('https://youtube-directory.vercel.app', {
-      waitUntil: 'networkidle',
-      timeout: 30000
-    });
+  console.log('Navigating to YouTube Directory...');
+  await page.goto('https://youtube-directory.vercel.app/', { waitUntil: 'networkidle' });
 
-    // Wait for the page to load
+  // Click on user icon to access admin
+  console.log('Clicking user icon to access admin...');
+  const userIcon = await page.locator('button:has(svg), [aria-label*="user" i], .user-icon, svg[class*="user" i]').first();
+  if (await userIcon.isVisible()) {
+    await userIcon.click();
     await page.waitForTimeout(2000);
-
-    // First, take a screenshot of the main page to see the admin icon
-    const mainScreenshotPath = path.join(__dirname, 'screenshots', 'mobile-main-375px.png');
-    await page.screenshot({
-      path: mainScreenshotPath,
-      fullPage: false
-    });
-    console.log('Main page screenshot saved');
-
-    // Look for admin icon/link - typically in the top right
-    const adminSelectors = [
-      'a[href*="admin"]',
-      'button[aria-label*="admin"]',
-      '[class*="admin"]',
-      'svg[class*="user"]',
-      'svg[class*="admin"]',
-      '[data-testid*="admin"]',
-      'a svg', // Generic SVG in link
-      'button svg' // Generic SVG in button
-    ];
-
-    let adminLink = null;
-    for (const selector of adminSelectors) {
-      try {
-        adminLink = await page.$(selector);
-        if (adminLink) {
-          console.log(`Found potential admin element with selector: ${selector}`);
-          const box = await adminLink.boundingBox();
-          if (box && box.x > 200) { // Likely in the top right if x > 200
-            console.log(`Admin element position: x=${box.x}, y=${box.y}`);
-            break;
-          } else {
-            adminLink = null;
-          }
-        }
-      } catch (e) {
-        // Continue trying other selectors
-      }
-    }
-
-    // If no specific admin link found, try clicking in top right area
-    if (!adminLink) {
-      console.log('Trying to click in top-right corner area...');
-      await page.click('header', { position: { x: 340, y: 30 } }).catch(() => {});
-      await page.waitForTimeout(1000);
-    } else {
-      await adminLink.click();
-      console.log('Clicked admin link');
-    }
-
-    // Wait for navigation or check if we're on admin page
-    await page.waitForTimeout(3000);
-
-    const currentUrl = page.url();
-    console.log('Current URL:', currentUrl);
-
-    // If not on admin page, try direct navigation
-    if (!currentUrl.includes('admin')) {
-      console.log('Navigating directly to /admin...');
-      await page.goto('https://youtube-directory.vercel.app/admin', {
-        waitUntil: 'networkidle',
-        timeout: 30000
-      });
-      await page.waitForTimeout(2000);
-    }
-
-    // Capture admin page screenshots
-    console.log('Capturing admin page mobile screenshots...');
-
-    // Full page screenshot
-    const adminFullPath = path.join(__dirname, 'screenshots', 'admin-mobile-full-375px.png');
-    await page.screenshot({
-      path: adminFullPath,
-      fullPage: true
-    });
-    console.log('Admin full page screenshot saved');
-
-    // Above the fold screenshot
-    const adminViewportPath = path.join(__dirname, 'screenshots', 'admin-mobile-viewport-375px.png');
-    await page.screenshot({
-      path: adminViewportPath,
-      fullPage: false
-    });
-    console.log('Admin viewport screenshot saved');
-
-    // Try to capture video cards specifically
-    const cardSelectors = [
-      '.video-card',
-      '[class*="card"]',
-      'article',
-      '.grid > div',
-      '[class*="grid"] > div'
-    ];
-
-    for (const selector of cardSelectors) {
-      const cards = await page.$$(selector);
-      if (cards.length > 0) {
-        console.log(`Found ${cards.length} elements with selector: ${selector}`);
-
-        // Capture first few cards
-        for (let i = 0; i < Math.min(3, cards.length); i++) {
-          const card = cards[i];
-          const box = await card.boundingBox();
-          if (box) {
-            console.log(`Card ${i + 1} dimensions: width=${box.width}px, height=${box.height}px`);
-
-            // Take screenshot of individual card
-            const cardPath = path.join(__dirname, 'screenshots', `admin-card-${i + 1}-375px.png`);
-            await card.screenshot({ path: cardPath });
-          }
-        }
-
-        // Analyze grid/layout CSS
-        const gridContainer = await page.$('[class*="grid"]');
-        if (gridContainer) {
-          const gridStyles = await gridContainer.evaluate(el => {
-            const computed = window.getComputedStyle(el);
-            return {
-              display: computed.display,
-              gridTemplateColumns: computed.gridTemplateColumns,
-              gap: computed.gap,
-              padding: computed.padding,
-              width: computed.width
-            };
-          });
-          console.log('Grid container styles:', JSON.stringify(gridStyles, null, 2));
-        }
-
-        // Get card styles
-        const cardStyles = await cards[0].evaluate(el => {
-          const computed = window.getComputedStyle(el);
-          return {
-            width: computed.width,
-            maxWidth: computed.maxWidth,
-            minWidth: computed.minWidth,
-            height: computed.height,
-            padding: computed.padding,
-            margin: computed.margin,
-            display: computed.display,
-            flexBasis: computed.flexBasis
-          };
-        });
-        console.log('Card styles:', JSON.stringify(cardStyles, null, 2));
-
-        break;
-      }
-    }
-
-    // Scroll down to capture more cards if present
-    await page.evaluate(() => window.scrollBy(0, 400));
-    await page.waitForTimeout(1000);
-
-    const adminScrolledPath = path.join(__dirname, 'screenshots', 'admin-mobile-scrolled-375px.png');
-    await page.screenshot({
-      path: adminScrolledPath,
-      fullPage: false
-    });
-    console.log('Admin scrolled screenshot saved');
-
-    // Extract and analyze CSS
-    const analysisData = await page.evaluate(() => {
-      const analysis = {
-        viewport: {
-          width: window.innerWidth,
-          height: window.innerHeight
-        },
-        cards: [],
-        container: null
-      };
-
-      // Find card container
-      const containers = document.querySelectorAll('[class*="grid"], .container, main');
-      if (containers.length > 0) {
-        const container = containers[0];
-        const containerStyles = window.getComputedStyle(container);
-        analysis.container = {
-          tag: container.tagName,
-          className: container.className,
-          styles: {
-            display: containerStyles.display,
-            gridTemplateColumns: containerStyles.gridTemplateColumns,
-            flexDirection: containerStyles.flexDirection,
-            gap: containerStyles.gap,
-            padding: containerStyles.padding,
-            width: containerStyles.width
-          }
-        };
-      }
-
-      // Find cards
-      const cardSelectors = ['.video-card', '[class*="card"]', 'article', '.grid > div'];
-      let cards = [];
-
-      for (const selector of cardSelectors) {
-        cards = document.querySelectorAll(selector);
-        if (cards.length > 0) break;
-      }
-
-      // Analyze first 5 cards
-      for (let i = 0; i < Math.min(5, cards.length); i++) {
-        const card = cards[i];
-        const rect = card.getBoundingClientRect();
-        const styles = window.getComputedStyle(card);
-
-        analysis.cards.push({
-          index: i,
-          dimensions: {
-            width: rect.width,
-            height: rect.height,
-            x: rect.x,
-            y: rect.y
-          },
-          styles: {
-            width: styles.width,
-            maxWidth: styles.maxWidth,
-            minWidth: styles.minWidth,
-            padding: styles.padding,
-            margin: styles.margin,
-            boxSizing: styles.boxSizing
-          },
-          className: card.className
-        });
-      }
-
-      return analysis;
-    });
-
-    console.log('\n=== CSS Analysis Results ===');
-    console.log(JSON.stringify(analysisData, null, 2));
-
-    // Save analysis to file
-    fs.writeFileSync(
-      path.join(__dirname, 'screenshots', 'mobile-analysis.json'),
-      JSON.stringify(analysisData, null, 2)
-    );
-
-  } catch (error) {
-    console.error('Error during analysis:', error);
-  } finally {
-    await browser.close();
-    console.log('\nAnalysis complete. Screenshots saved in ./screenshots/');
   }
+
+  // Try to find and click admin link
+  try {
+    const adminLink = await page.locator('a[href*="admin"], button:has-text("Admin"), text=/admin/i').first();
+    if (await adminLink.isVisible()) {
+      await adminLink.click();
+      await page.waitForLoadState('networkidle');
+    } else {
+      throw new Error('Admin link not visible');
+    }
+  } catch (e) {
+    // Try direct navigation
+    console.log('Navigating directly to /admin...');
+    await page.goto('https://youtube-directory.vercel.app/admin', { waitUntil: 'networkidle' });
+  }
+
+  await page.waitForTimeout(3000);
+
+  // Create screenshots directory
+  const screenshotDir = '/Users/paulbridges/Downloads/Directory/youtube-directory/admin-analysis';
+  await fs.mkdir(screenshotDir, { recursive: true });
+
+  // Take full page screenshot
+  console.log('Capturing full page screenshot...');
+  await page.screenshot({
+    path: path.join(screenshotDir, 'admin-mobile-full.png'),
+    fullPage: true
+  });
+
+  // Find video cards with admin buttons
+  const cards = await page.locator('.video-card, [class*="card"], article, .grid > div').all();
+  console.log(`Found ${cards.length} potential cards`);
+
+  // Analyze first few cards with admin buttons
+  for (let i = 0; i < Math.min(3, cards.length); i++) {
+    const card = cards[i];
+
+    // Check if this card has admin buttons
+    const hasAdminButtons = await card.locator('button').count() > 0;
+    if (!hasAdminButtons) continue;
+
+    console.log(`Analyzing card ${i + 1}...`);
+
+    // Scroll card into view
+    await card.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+
+    // Get card dimensions
+    const boundingBox = await card.boundingBox();
+    if (boundingBox) {
+      console.log(`Card ${i + 1} dimensions:`, {
+        width: boundingBox.width,
+        height: boundingBox.height,
+        x: boundingBox.x,
+        y: boundingBox.y
+      });
+
+      // Take screenshot of individual card
+      await card.screenshot({
+        path: path.join(screenshotDir, `card-${i + 1}.png`)
+      });
+
+      // Analyze admin buttons
+      const buttons = await card.locator('button').all();
+      console.log(`Card ${i + 1} has ${buttons.length} buttons`);
+
+      for (let j = 0; j < buttons.length; j++) {
+        const button = buttons[j];
+        const buttonBox = await button.boundingBox();
+        const buttonText = await button.textContent().catch(() => '');
+        const buttonAriaLabel = await button.getAttribute('aria-label').catch(() => '');
+
+        if (buttonBox) {
+          const isVisible = buttonBox.x + buttonBox.width <= 375;
+          console.log(`  Button ${j + 1}:`, {
+            text: buttonText || buttonAriaLabel || 'Unknown',
+            width: buttonBox.width,
+            x: buttonBox.x,
+            rightEdge: buttonBox.x + buttonBox.width,
+            isFullyVisible: isVisible,
+            overflow: isVisible ? 0 : (buttonBox.x + buttonBox.width) - 375
+          });
+        }
+      }
+    }
+  }
+
+  // Analyze grid/container properties
+  const container = await page.locator('.grid, [class*="grid"], main > div').first();
+  const containerBox = await container.boundingBox();
+  if (containerBox) {
+    console.log('\nContainer dimensions:', {
+      width: containerBox.width,
+      padding: await container.evaluate(el => {
+        const styles = window.getComputedStyle(el);
+        return {
+          left: styles.paddingLeft,
+          right: styles.paddingRight,
+          gap: styles.gap || styles.gridGap
+        };
+      })
+    });
+  }
+
+  // Extract CSS information
+  console.log('\nExtracting CSS properties...');
+  const cssInfo = await page.evaluate(() => {
+    const card = document.querySelector('.video-card, [class*="card"], article, .grid > div');
+    if (!card) return null;
+
+    const styles = window.getComputedStyle(card);
+    const containerStyles = window.getComputedStyle(card.parentElement);
+
+    return {
+      card: {
+        width: styles.width,
+        maxWidth: styles.maxWidth,
+        padding: styles.padding,
+        margin: styles.margin,
+        boxSizing: styles.boxSizing
+      },
+      container: {
+        display: containerStyles.display,
+        gridTemplateColumns: containerStyles.gridTemplateColumns,
+        gap: containerStyles.gap || containerStyles.gridGap,
+        padding: containerStyles.padding,
+        width: containerStyles.width
+      },
+      viewport: {
+        width: window.innerWidth,
+        availableWidth: window.innerWidth - parseInt(containerStyles.paddingLeft) - parseInt(containerStyles.paddingRight)
+      }
+    };
+  });
+
+  console.log('\nCSS Analysis:', JSON.stringify(cssInfo, null, 2));
+
+  // Take focused screenshot of problem area
+  const problemCard = await page.locator('.video-card, [class*="card"]').first();
+  if (await problemCard.isVisible()) {
+    const box = await problemCard.boundingBox();
+    if (box) {
+      // Capture wider area to show overflow
+      await page.screenshot({
+        path: path.join(screenshotDir, 'problem-area.png'),
+        clip: {
+          x: Math.max(0, box.x - 20),
+          y: box.y,
+          width: Math.min(415, box.width + 40), // Show 20px on each side if possible
+          height: box.height
+        }
+      });
+    }
+  }
+
+  console.log(`\nScreenshots saved to: ${screenshotDir}`);
+  console.log('\nAnalysis complete!');
+
+  await browser.close();
 }
 
-// Create screenshots directory
-const screenshotsDir = path.join(__dirname, 'screenshots');
-if (!fs.existsSync(screenshotsDir)) {
-  fs.mkdirSync(screenshotsDir, { recursive: true });
-}
-
-analyzeAdminMobile();
+analyzeAdminMobile().catch(console.error);

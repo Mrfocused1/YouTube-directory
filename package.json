@@ -39,5 +39,18 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "analyze-admin-mobile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mrfocused1/YouTube-directory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mrfocused1/YouTube-directory/issues"
+  },
+  "homepage": "https://github.com/Mrfocused1/YouTube-directory#readme"
 }
