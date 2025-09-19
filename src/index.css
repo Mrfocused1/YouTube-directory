@@ -89,13 +89,13 @@ body {
   padding: 0 clamp(1rem, 3vw, 2rem);
 }
 
-/* Mobile: 2 cards (Apple's minimum touch target considerations) */
+/* Mobile: 1 card per row (maximum space for each card) */
 @media (max-width: 767px) {
   .video-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important;
-    padding: 0 8px !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 0 16px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
@@ -234,9 +234,9 @@ body {
     max-width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
-    padding: 8px !important;
+    padding: 16px !important;
     margin: 0 !important;
-    border-radius: 12px !important;
+    border-radius: 16px !important;
   }
 
   /* Prevent text overflow in mobile cards */
