@@ -103,15 +103,15 @@ body {
 @media (max-width: 767px) {
   .video-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, 140px) !important;
-    gap: 12px !important;
-    padding: 0 8px !important;
+    grid-template-columns: repeat(2, minmax(120px, 1fr)) !important;
+    gap: 10px !important;
+    padding: 0 10px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: 100% !important;
     overflow: hidden !important;
-    justify-content: space-evenly !important;
+    justify-content: center !important;
   }
 }
 
@@ -241,11 +241,11 @@ body {
 
   /* Ensure video cards fit properly on mobile */
   .glass-card {
-    max-width: 140px !important;
-    min-width: 0 !important;
+    max-width: 100% !important;
+    min-width: 120px !important;
     box-sizing: border-box !important;
-    padding: 3px !important;
-    margin: 0 auto !important;
+    padding: 4px !important;
+    margin: 0 !important;
     border-radius: 8px !important;
   }
 
