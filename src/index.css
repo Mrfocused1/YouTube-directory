@@ -87,11 +87,11 @@ body {
   padding: 0 clamp(1rem, 3vw, 2rem);
 }
 
-/* Mobile: 1 card per row (maximum space for each card) */
+/* Mobile: 2 cards per row with 16px page margins */
 @media (max-width: 767px) {
   .video-grid {
     display: grid !important;
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 16px !important;
     padding: 0 16px !important;
     margin: 0 !important;
