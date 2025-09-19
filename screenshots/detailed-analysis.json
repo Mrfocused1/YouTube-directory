@@ -1,0 +1,273 @@
+{
+  "viewport": {
+    "width": 375,
+    "height": 812
+  },
+  "grid": {
+    "className": "video-grid",
+    "dimensions": {
+      "width": 375,
+      "height": 704,
+      "x": 0
+    },
+    "styles": {
+      "display": "grid",
+      "gridTemplateColumns": "172.5px 172.5px",
+      "gridTemplateRows": "228px 228px 228px",
+      "gap": "10px",
+      "rowGap": "10px",
+      "columnGap": "10px",
+      "padding": "0px 10px",
+      "margin": "0px",
+      "boxSizing": "border-box"
+    },
+    "childCount": 6
+  },
+  "cards": [
+    {
+      "index": 0,
+      "title": "Rick Astley - Never Gonna Give",
+      "position": {
+        "row": 0,
+        "col": 0,
+        "x": 10,
+        "y": 377
+      },
+      "dimensions": {
+        "width": 172.5,
+        "height": 228,
+        "percentOfViewport": "46.0"
+      },
+      "styles": {
+        "width": "172.5px",
+        "height": "228px",
+        "padding": "4px",
+        "margin": "0px",
+        "borderRadius": "8px",
+        "overflow": "hidden",
+        "display": "block",
+        "flexDirection": "row"
+      },
+      "image": {
+        "width": 218,
+        "height": 122.625,
+        "naturalWidth": 1280,
+        "naturalHeight": 720,
+        "objectFit": "cover",
+        "borderRadius": "6px",
+        "aspectRatio": "16 / 9"
+      },
+      "textOverflow": "clip"
+    },
+    {
+      "index": 1,
+      "title": "PSY - GANGNAM STYLE",
+      "position": {
+        "row": 0,
+        "col": 1,
+        "x": 192.5,
+        "y": 377
+      },
+      "dimensions": {
+        "width": 172.5,
+        "height": 228,
+        "percentOfViewport": "46.0"
+      },
+      "styles": {
+        "width": "172.5px",
+        "height": "228px",
+        "padding": "4px",
+        "margin": "0px",
+        "borderRadius": "8px",
+        "overflow": "hidden",
+        "display": "block",
+        "flexDirection": "row"
+      },
+      "image": {
+        "width": 218,
+        "height": 122.625,
+        "naturalWidth": 1280,
+        "naturalHeight": 720,
+        "objectFit": "cover",
+        "borderRadius": "6px",
+        "aspectRatio": "16 / 9"
+      },
+      "textOverflow": "clip"
+    },
+    {
+      "index": 2,
+      "title": "Queen – Bohemian Rhapsody",
+      "position": {
+        "row": 1,
+        "col": 0,
+        "x": 10,
+        "y": 615
+      },
+      "dimensions": {
+        "width": 172.5,
+        "height": 228,
+        "percentOfViewport": "46.0"
+      },
+      "styles": {
+        "width": "172.5px",
+        "height": "228px",
+        "padding": "4px",
+        "margin": "0px",
+        "borderRadius": "8px",
+        "overflow": "hidden",
+        "display": "block",
+        "flexDirection": "row"
+      },
+      "image": {
+        "width": 218,
+        "height": 122.625,
+        "naturalWidth": 120,
+        "naturalHeight": 90,
+        "objectFit": "cover",
+        "borderRadius": "6px",
+        "aspectRatio": "16 / 9"
+      },
+      "textOverflow": "clip"
+    },
+    {
+      "index": 3,
+      "title": "Luis Fonsi - Despacito ft. Dad",
+      "position": {
+        "row": 1,
+        "col": 1,
+        "x": 192.5,
+        "y": 615
+      },
+      "dimensions": {
+        "width": 172.5,
+        "height": 228,
+        "percentOfViewport": "46.0"
+      },
+      "styles": {
+        "width": "172.5px",
+        "height": "228px",
+        "padding": "4px",
+        "margin": "0px",
+        "borderRadius": "8px",
+        "overflow": "hidden",
+        "display": "block",
+        "flexDirection": "row"
+      },
+      "image": {
+        "width": 218,
+        "height": 122.625,
+        "naturalWidth": 1280,
+        "naturalHeight": 720,
+        "objectFit": "cover",
+        "borderRadius": "6px",
+        "aspectRatio": "16 / 9"
+      },
+      "textOverflow": "clip"
+    },
+    {
+      "index": 4,
+      "title": "Adele - Hello",
+      "position": {
+        "row": 2,
+        "col": 0,
+        "x": 10,
+        "y": 853
+      },
+      "dimensions": {
+        "width": 172.5,
+        "height": 228,
+        "percentOfViewport": "46.0"
+      },
+      "styles": {
+        "width": "172.5px",
+        "height": "228px",
+        "padding": "4px",
+        "margin": "0px",
+        "borderRadius": "8px",
+        "overflow": "hidden",
+        "display": "block",
+        "flexDirection": "row"
+      },
+      "image": {
+        "width": 218,
+        "height": 122.625,
+        "naturalWidth": 1280,
+        "naturalHeight": 720,
+        "objectFit": "cover",
+        "borderRadius": "6px",
+        "aspectRatio": "16 / 9"
+      },
+      "textOverflow": "clip"
+    },
+    {
+      "index": 5,
+      "title": "Ed Sheeran - Shape of You",
+      "position": {
+        "row": 2,
+        "col": 1,
+        "x": 192.5,
+        "y": 853
+      },
+      "dimensions": {
+        "width": 172.5,
+        "height": 228,
+        "percentOfViewport": "46.0"
+      },
+      "styles": {
+        "width": "172.5px",
+        "height": "228px",
+        "padding": "4px",
+        "margin": "0px",
+        "borderRadius": "8px",
+        "overflow": "hidden",
+        "display": "block",
+        "flexDirection": "row"
+      },
+      "image": {
+        "width": 218,
+        "height": 122.625,
+        "naturalWidth": 120,
+        "naturalHeight": 90,
+        "objectFit": "cover",
+        "borderRadius": "6px",
+        "aspectRatio": "16 / 9"
+      },
+      "textOverflow": "clip"
+    }
+  ],
+  "issues": [],
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "category": "GRID_LAYOUT",
+      "recommendation": "Use responsive grid with minmax()",
+      "currentValue": "172.5px 172.5px",
+      "suggestedValue": "repeat(2, minmax(0, 1fr))",
+      "css": ".video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SPACING",
+      "recommendation": "Optimize gap and padding for mobile",
+      "currentValue": "gap: 10px, padding: 0px 10px",
+      "suggestedValue": "gap: 12px, padding: 0 12px",
+      "css": ".video-grid { gap: 12px; padding: 0 12px; }"
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "CARD_SIZING",
+      "recommendation": "Ensure cards scale properly",
+      "suggestedValue": "width: 100%",
+      "css": ".video-grid > a { width: 100%; }"
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "IMAGE_ASPECT",
+      "recommendation": "Maintain consistent image aspect ratio",
+      "suggestedValue": "aspect-ratio: 16/9",
+      "css": ".video-grid img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }"
+    }
+  ],
+  "actualHorizontalGap": 10,
+  "actualVerticalGap": 10
+}

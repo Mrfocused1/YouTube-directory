@@ -1,0 +1,19 @@
+{
+  "viewport": {
+    "width": 375,
+    "height": 812
+  },
+  "cards": [],
+  "container": {
+    "tag": "DIV",
+    "className": "container",
+    "styles": {
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "flexDirection": "column",
+      "gap": "normal",
+      "padding": "0px",
+      "width": "375px"
+    }
+  }
+}
