@@ -54,14 +54,12 @@ body {
   }
 }
 
-/* Glassmorphism Card Styles */
+/* Clean Card Styles (removed glassmorphism) */
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: transparent;
   border-radius: 20px;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  border: none;
+  box-shadow: none;
 }
 
 .glass-button {
