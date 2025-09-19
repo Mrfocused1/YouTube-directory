@@ -395,7 +395,7 @@ body::before {
 
   .video-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
+    gap: 12px !important;
     padding: 0 16px !important;
   }
 
@@ -407,7 +407,7 @@ body::before {
   /* Reduce video card size on mobile */
   .video-card,
   .glass-card {
-    max-width: 140px !important;
+    width: 100% !important; /* Allow cards to take full width of their grid column */
     margin: 0 auto !important;
     padding: 6px !important;
   }
