@@ -379,7 +379,7 @@ body::before {
 /* ============================
    8. Responsive Design
    ============================ */
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .app-container {
     padding: var(--spacing-md);
   }
@@ -394,13 +394,42 @@ body::before {
   }
 
   .video-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+    padding: 0 16px !important;
   }
 
   .search-bar {
     font-size: 16px; /* Prevents zoom on iOS */
     padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  /* Reduce video card size on mobile */
+  .video-card,
+  .glass-card {
+    max-width: 140px !important;
+    margin: 0 auto !important;
+    padding: 6px !important;
+  }
+
+  /* Hide video dates on mobile */
+  .video-date {
+    display: none !important;
+  }
+
+  /* Make admin search bar smaller on mobile to match homepage */
+  .admin-search-container {
+    max-width: 400px !important;
+    margin: 0 auto 1rem auto !important;
+  }
+
+  .admin-search-bar {
+    padding: 0.75rem 1rem !important;
+    border-radius: 12px !important;
+  }
+
+  .admin-search-input {
+    font-size: 16px !important;
   }
 }
 

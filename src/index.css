@@ -104,8 +104,8 @@ body {
   .video-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 28px !important;
-    padding: 0 20px !important;
+    gap: 16px !important;
+    padding: 0 16px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
@@ -240,13 +240,12 @@ body {
 
   /* Ensure video cards fit properly on mobile */
   .glass-card {
-    width: 100% !important;
-    max-width: 100% !important;
+    max-width: 140px !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
-    padding: 8px !important;
-    margin: 0 !important;
-    border-radius: 12px !important;
+    padding: 6px !important;
+    margin: 0 auto !important;
+    border-radius: 10px !important;
   }
 
   /* Prevent text overflow in mobile cards */
