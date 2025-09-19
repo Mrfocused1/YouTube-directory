@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase, isSupabaseConfigured } from '../lib/supabase'
+// import { supabase, isSupabaseConfigured } from '../lib/supabase'
 import type { Database } from '../lib/database.types'
 
 type VideoInsert = Database['public']['Tables']['videos']['Insert']
@@ -125,11 +125,11 @@ export const useVideos = () => {
     }
   }
 
-  const addVideo = async (video: Omit<VideoInsert, 'id' | 'created_at' | 'updated_at'>) => {
+  const addVideo = async (_video: Omit<VideoInsert, 'id' | 'created_at' | 'updated_at'>) => {
     return { data: null, error: 'Demo mode - Cannot add videos. Configure Supabase to enable this feature.' }
   }
 
-  const updateVideo = async (id: string, updates: VideoUpdate) => {
+  const updateVideo = async (_id: string, _updates: VideoUpdate) => {
     return { data: null, error: 'Demo mode - Cannot update videos. Configure Supabase to enable this feature.' }
   }
 
