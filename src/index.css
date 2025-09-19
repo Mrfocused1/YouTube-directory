@@ -104,8 +104,8 @@ body {
   .video-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px !important;
-    padding: 0 20px !important;
+    gap: 30px !important;
+    padding: 0 30px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
@@ -289,5 +289,10 @@ body {
     max-width: 100% !important;
     min-width: 0 !important;
     flex-shrink: 1 !important;
+  }
+
+  /* Hide video dates on mobile */
+  .video-date {
+    display: none !important;
   }
 }

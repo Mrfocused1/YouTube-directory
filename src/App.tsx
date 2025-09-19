@@ -853,7 +853,7 @@ function App() {
                         fontSize: '14px',
                         color: '#9ca3af'
                       }}>
-                        <span style={{ fontSize: '12px' }}>
+                        <span className="video-date" style={{ fontSize: '12px' }}>
                           {new Date(video.published_at).toLocaleDateString('en-GB', {
                             day: '2-digit',
                             month: '2-digit',
@@ -1527,7 +1527,7 @@ function App() {
                           <span style={{ fontSize: '12px' }}>
                             {video.channel}
                           </span>
-                          <span style={{ fontSize: '12px' }}>
+                          <span className="video-date" style={{ fontSize: '12px' }}>
                             {new Date(video.published_at).toLocaleDateString('en-GB', {
                               day: '2-digit',
                               month: '2-digit',
