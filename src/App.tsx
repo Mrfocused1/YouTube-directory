@@ -1196,11 +1196,11 @@ function App() {
             </div>
 
             {/* Local Video Search */}
-            <div style={{
+            <div className="admin-search-container" style={{
               maxWidth: '600px',
               margin: '0 auto 2rem auto'
             }}>
-              <div style={{
+              <div className="admin-search-bar" style={{
                 position: 'relative',
                 display: 'flex',
                 alignItems: 'center',
@@ -1225,6 +1225,7 @@ function App() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search existing videos, channels, or tags..."
+                  className="admin-search-input"
                   style={{
                     flex: 1,
                     background: 'transparent',

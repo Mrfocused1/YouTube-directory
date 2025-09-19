@@ -104,8 +104,8 @@ body {
   .video-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 32px !important;
-    padding: 0 24px !important;
+    gap: 20px !important;
+    padding: 0 16px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
@@ -294,5 +294,20 @@ body {
   /* Hide video dates on mobile */
   .video-date {
     display: none !important;
+  }
+
+  /* Make admin search bar smaller on mobile to match homepage */
+  .admin-search-container {
+    max-width: 400px !important;
+    margin: 0 auto 1rem auto !important;
+  }
+
+  .admin-search-bar {
+    padding: 0.75rem 1rem !important;
+    border-radius: 12px !important;
+  }
+
+  .admin-search-input {
+    font-size: 16px !important;
   }
 }
