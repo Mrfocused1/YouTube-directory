@@ -1,5 +1,10 @@
 /* Enhanced Glassmorphism Theme for YouTube Directory */
 
+/* Tailwind CSS base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ============================
    1. CSS Variables & Theme
    ============================ */
@@ -48,55 +53,98 @@
 }
 
 /* ============================
-   2. Base Styles & Background
+   Base Styles & Reset
    ============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
+  padding: 0;
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 
-  /* Tower Bridge background with gradient overlay */
-  background:
-    linear-gradient(135deg,
-      rgba(10, 15, 30, 0.92) 0%,
-      rgba(20, 25, 50, 0.88) 50%,
-      rgba(30, 40, 70, 0.85) 100%),
-    url('/tower-bridge-bg.jpg') center/cover fixed,
-    #0a0f1e;
-
+  /* Black background */
+  background: #000000;
+  background-attachment: fixed;
   min-height: 100vh;
-  color: var(--text-primary);
   position: relative;
 }
 
-/* Add animated gradient overlay for depth */
+/* Background layers - DISABLED to ensure solid black background */
 body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(76, 158, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(81, 207, 102, 0.05) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
-/* Container with proper z-index */
-.app-container {
+body::after {
+  display: none;
+}
+
+/* Animation keyframes - DISABLED (no longer needed) */
+/*
+@keyframes videoFlow2 {
+  0% {
+    transform: translateX(-10%) translateY(-10%) rotate(0deg);
+  }
+  25% {
+    transform: translateX(10%) translateY(-5%) rotate(1deg);
+  }
+  50% {
+    transform: translateX(5%) translateY(10%) rotate(-0.5deg);
+  }
+  75% {
+    transform: translateX(-5%) translateY(5%) rotate(0.5deg);
+  }
+  100% {
+    transform: translateX(-10%) translateY(-10%) rotate(0deg);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 25%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  75% {
+    background-position: 25% 75%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+*/
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
   position: relative;
-  z-index: 2;
-  padding: var(--spacing-lg);
-  max-width: 1440px;
+  z-index: 3;
+}
+
+/* Main content responsive padding */
+.main-content {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 1.5rem 5rem 1.5rem;
 }
 
 /* ============================
-   3. Header & Navigation
+   2. Header Component
    ============================ */
 .header {
   background: var(--glass-bg-light);
@@ -110,6 +158,9 @@ body::before {
   position: sticky;
   top: var(--spacing-lg);
   z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .site-title {
@@ -118,6 +169,7 @@ body::before {
   background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -129,10 +181,12 @@ body::before {
 }
 
 /* ============================
-   4. Search Bar
+   3. Search Bar Component
    ============================ */
 .search-container {
   margin: var(--spacing-xl) 0;
+  display: flex;
+  justify-content: center;
 }
 
 .search-bar {
@@ -169,16 +223,104 @@ body::before {
 }
 
 /* ============================
-   5. Video Cards Grid
+   4. Category Pills
+   ============================ */
+.category-pills {
+  display: flex;
+  gap: var(--spacing-sm);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: var(--spacing-sm);
+  margin: var(--spacing-lg) 0;
+  justify-content: center;
+}
+
+.category-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.category-pill {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.category-pill:hover {
+  background: var(--glass-bg-medium);
+  color: var(--text-primary);
+  transform: scale(1.05);
+  border-color: var(--glass-border-hover);
+}
+
+.category-pill.active {
+  background: linear-gradient(135deg, var(--primary-color) 0%, rgba(76, 158, 255, 0.8) 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(76, 158, 255, 0.3);
+}
+
+/* ============================
+   5. Video Grid & Cards
    ============================ */
 .video-grid {
   display: grid;
   gap: var(--spacing-lg);
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   margin-top: var(--spacing-xl);
+  padding: 0 var(--spacing-lg);
 }
 
-.video-card {
+/* Responsive grid columns */
+@media (max-width: 767px) {
+  .video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+    gap: 12px !important;
+    padding: 0 12px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .video-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .video-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .video-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .video-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2rem;
+    max-width: 1920px;
+    margin: var(--spacing-xl) auto 0;
+  }
+}
+
+.video-card,
+.glass-card {
   background: var(--glass-bg-light);
   backdrop-filter: blur(var(--glass-blur)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
@@ -193,7 +335,8 @@ body::before {
     inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
-.video-card:hover {
+.video-card:hover,
+.glass-card:hover {
   transform: translateY(-4px) scale(1.02);
   background: var(--glass-bg-medium);
   border-color: var(--glass-border-hover);
@@ -202,20 +345,13 @@ body::before {
     inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
 }
 
-.video-card:focus-visible {
-  outline: 3px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/* Video thumbnail with overlay */
+/* Video thumbnail with 16:9 aspect ratio */
 .video-thumbnail-container {
   position: relative;
   width: 100%;
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
   overflow: hidden;
-  background: linear-gradient(180deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
 .video-thumbnail {
@@ -248,6 +384,7 @@ body::before {
   justify-content: center;
   opacity: 0;
   transition: opacity var(--transition-base);
+  z-index: 10;
 }
 
 .video-card:hover .play-overlay {
@@ -296,20 +433,33 @@ body::before {
 }
 
 /* ============================
-   6. Buttons
+   6. Buttons & Controls
    ============================ */
-.btn {
+.btn,
+.glass-button {
   padding: var(--spacing-sm) var(--spacing-lg);
   font-size: 0.875rem;
   font-weight: 600;
   border-radius: var(--radius-md);
-  border: 1px solid transparent;
+  border: 1px solid var(--glass-border);
   cursor: pointer;
   transition: all var(--transition-base);
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-sm);
   text-decoration: none;
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  color: var(--text-primary);
+}
+
+.btn:hover,
+.glass-button:hover {
+  background: var(--glass-bg-medium);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow);
 }
 
 .btn-primary {
@@ -328,23 +478,8 @@ body::before {
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-.btn-glass {
-  background: var(--glass-bg-light);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
-}
-
-.btn-glass:hover {
-  background: var(--glass-bg-medium);
-  border-color: var(--glass-border-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--glass-shadow);
-}
-
 /* ============================
-   7. Modal/Dialog
+   7. Modal/Dialog Styles
    ============================ */
 .modal-overlay {
   position: fixed;
@@ -377,83 +512,108 @@ body::before {
 }
 
 /* ============================
-   8. Responsive Design
+   8. Mobile Responsiveness
    ============================ */
 @media (max-width: 767px) {
-  .app-container {
-    padding: var(--spacing-md);
+  .main-content {
+    padding: 0 0 5rem 0 !important;
   }
 
   .header {
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: 16px 20px;
     border-radius: var(--radius-md);
+    margin: 8px;
+    top: 8px;
   }
 
   .site-title {
     font-size: 1.5rem;
   }
 
-  .video-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
-    padding: 0 16px !important;
-  }
-
   .search-bar {
     font-size: 16px; /* Prevents zoom on iOS */
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 12px 16px;
   }
 
-  /* Reduce video card size on mobile */
+  /* Welcome section mobile optimization */
+  .text-center h1 {
+    font-size: 2.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .text-center .btn {
+    font-size: 1rem !important;
+    padding: 12px 24px !important;
+  }
+
   .video-card,
   .glass-card {
-    max-width: 140px !important;
-    margin: 0 auto !important;
-    padding: 6px !important;
+    border-radius: var(--radius-sm) !important;
+    width: 100% !important; /* Allow cards to take full width of their grid column */
+    margin: 0 auto; /* Center cards if they don't fill the row */
+    box-sizing: border-box !important;
   }
 
-  /* Hide video dates on mobile */
+  .video-title {
+    font-size: 1.1rem !important;
+    line-height: 1.3 !important;
+    -webkit-line-clamp: 3 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .video-channel {
+    font-size: 0.95rem !important;
+    margin-bottom: 6px !important;
+  }
+
   .video-date {
     display: none !important;
   }
 
-  /* Make admin search bar smaller on mobile to match homepage */
-  .admin-search-container {
-    max-width: 400px !important;
-    margin: 0 auto 1rem auto !important;
+  /* Video info padding mobile optimization */
+  .video-info {
+    padding: 16px !important;
   }
 
-  .admin-search-bar {
-    padding: 0.75rem 1rem !important;
-    border-radius: 12px !important;
+  /* Admin buttons mobile optimization */
+  .admin-buttons button,
+  .video-card button {
+    font-size: 0.8rem !important;
+    padding: 8px 12px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
-  .admin-search-input {
-    font-size: 16px !important;
+  .tags-container {
+    overflow-x: auto;
   }
-}
 
-@media (min-width: 481px) and (max-width: 768px) {
-  .video-grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* Category pills mobile optimization */
+  .category-pills {
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    overflow-x: visible !important;
+    padding: 0 16px !important;
   }
-}
 
-@media (min-width: 769px) and (max-width: 1280px) {
-  .video-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 1281px) {
-  .video-grid {
-    grid-template-columns: repeat(4, 1fr);
+  .category-pill {
+    margin-bottom: 8px !important;
+    font-size: 0.9rem !important;
+    padding: 10px 16px !important;
   }
 }
 
 /* ============================
-   9. Accessibility
+   9. Performance & Accessibility
    ============================ */
+.video-card,
+.btn,
+.search-bar {
+  will-change: transform, box-shadow;
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
 /* Focus styles */
 :focus-visible {
   outline: 3px solid var(--primary-color);
@@ -461,35 +621,33 @@ body::before {
   border-radius: var(--radius-sm);
 }
 
-/* Skip to content link */
-.skip-to-content {
-  position: absolute;
-  top: -100px;
-  left: var(--spacing-lg);
-  background: var(--primary-color);
-  color: white;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  z-index: 1001;
+.video-card:focus-visible,
+.btn:focus-visible,
+.search-bar:focus-visible,
+.category-pill:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(76, 158, 255, 0.2);
 }
 
-.skip-to-content:focus {
-  top: var(--spacing-lg);
+/* Enhanced button accessibility */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .video-card {
-    border-width: 2px;
-  }
-
-  .btn {
-    border-width: 2px;
-  }
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
 }
 
-/* Reduced motion */
+/* Better play button accessibility */
+.play-overlay:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -497,13 +655,23 @@ body::before {
     transition-duration: 0.01ms !important;
   }
 
-  .video-card:hover {
-    transform: none;
-  }
-
+  .video-card:hover,
   .btn:hover {
     transform: none;
   }
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ============================
@@ -535,53 +703,6 @@ body::before {
   height: 20px;
   margin: var(--spacing-sm) 0;
   max-width: 80%;
-}
-
-/* ============================
-   11. Category Pills
-   ============================ */
-.category-pills {
-  display: flex;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-  margin: var(--spacing-lg) 0;
-  justify-content: center;
-}
-
-.category-pill {
-  padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--glass-bg-light);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  border-radius: 100px;
-  color: var(--text-secondary);
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-base);
-}
-
-.category-pill:hover {
-  background: var(--glass-bg-medium);
-  color: var(--text-primary);
-  transform: scale(1.05);
-}
-
-.category-pill.active {
-  background: linear-gradient(135deg, var(--primary-color) 0%, rgba(76, 158, 255, 0.8) 100%);
-  color: white;
-  border-color: transparent;
-}
-
-/* ============================
-   12. Performance Optimizations
-   ============================ */
-.video-card,
-.btn,
-.search-bar {
-  will-change: transform, box-shadow;
-  transform: translateZ(0); /* Hardware acceleration */
 }
 
 /* Optimize backdrop-filter performance */
