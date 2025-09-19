@@ -103,7 +103,7 @@ body {
 @media (max-width: 767px) {
   .video-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 140px) !important;
     gap: 16px !important;
     padding: 0 16px !important;
     margin: 0 !important;
@@ -111,6 +111,7 @@ body {
     width: 100% !important;
     max-width: 100% !important;
     overflow: hidden !important;
+    justify-content: center !important;
   }
 }
 
