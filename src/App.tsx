@@ -1342,10 +1342,11 @@ function App() {
                       border: '1px solid rgba(255, 255, 255, 0.125)',
                       boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
                       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                      height: '220px',
-                    width: '220px',
-                      display: 'flex',
-                      flexDirection: 'column'
+                      minWidth: '180px', // Smaller minimum width for very small mobile screens
+                      maxWidth: '280px', // Adjusted for better fit on various mobile screens
+                      flex: '1 1 auto', // Allows cards to grow and shrink
+                      height: 'auto', // Remove fixed height to allow content to dictate height
+                      aspectRatio: '1/1', // Maintain a square aspect ratio or adjust as needed
                     }}>
                       {/* Admin Action Buttons */}
                       <div style={{
